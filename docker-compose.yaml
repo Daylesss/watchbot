@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:15
+    container_name: db_app
+    command: -p 1121
+    expose:
+      - 1121
+    env_file:
+      - .env-non-dev
+  app:
+    build:
+      context: .
+    env_file:
+      - .env-non-dev
+    container_name: bot
+    command: ["/bot/app.sh"]
+    ports:
+      - 9998:8000
+    depends_on:
+      - db
