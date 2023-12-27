@@ -27,7 +27,9 @@ from core.config import BOT_TOKEN
 
 # async def admin(message: types.Message, bot: Bot):
 #     await bot.send_message(chat_id="-1001909523416", text="Админ лох")
-
+from core.handlers.base_handlers import base_router
+from core.handlers.admin_handl import admin_router
+from core.handlers.user_handlers import user_router
 
 async def main():
     bot=Bot(token=BOT_TOKEN, parse_mode='HTML')
@@ -41,6 +43,7 @@ async def main():
     # dp.callback_query.register(test_mes)
     # dp.message.register(successful_pay, F.successful_payment)
     # dp.pre_checkout_query.register(pre_checkout_query)
+    dp.include_routers(base_router, admin_router, user_router)
     try:
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
