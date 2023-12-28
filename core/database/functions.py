@@ -14,26 +14,12 @@ async def new_user_db(tg_id: int, username:str):
             return True
         else: return False
 
-# async def get_order_status(tg_id: int):
-#     async with async_session_maker() as session:
-#         query = select(user.c.order_id).where(user.c.tg_id==tg_id)
-#         res = await session.execute(query)
-#         res = res.first()
-#         if not(res):
-#             return "no_order"
-#         order_id = res[0]
-#         query = select(order.c.order_status).where(order.c.order_id==order_id)
-#         res = await session.execute(query)
-#         res =  res.first()[0]
-#         print(res)
-#         return res
 
 async def get_user_order_db(tg_id: int):
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id==order.c.order_id, isouter=True)\
             .join(watch, watch.c.watch_id==order.c.watch_id, isouter=True)
         query = select(watch.c.status).select_from(j)
-        # query = select(user.c.current_watch_id).where(user.c.tg_id==tg_id)
         res = await session.execute(query)
         res = res.first()
         if not(res[0]):
@@ -43,18 +29,6 @@ async def get_user_order_db(tg_id: int):
         print(res[0])
         return res[0]
 
-# async def get_admin_message(tg_id: int):
-#     async with async_session_maker() as session:
-#         j = user.join(order, user.c.order_id==order.c.order_id, isouter=True)
-#         query = select(order.c.order_status).select_from(j)
-#         # query = select(user.c.current_watch_id).where(user.c.tg_id==tg_id)
-#         res = await session.execute(query)
-#         res = res.first()
-#         if not(res):
-#             return "no_order"
-        
-#         print(res[0])
-#         return res[0]
 
 async def get_admin_message(tg_id: int):
     async with async_session_maker() as session:
@@ -110,9 +84,14 @@ async def set_pay_params_db(tg_id: int, data:dict):
         await session.commit()
     return price
 
-async def upd_watch_book_status_db(tg_id: int, watch_id: int):
+async def upd_watch_book_status_db(tg_id: int, watch_id: int, status: str= "booking", order_none: bool=False):
     async with async_session_maker() as session:
-        stmt = update(watch).where(watch.c.watch_id==watch_id, watch.c.status=="for_sale").values(status="booking")
+        if not(order_none):
+            query = select(user.c.order_id).where(user.c.tg_id==tg_id)
+            res = await session.execute(query)
+            order_id = res.first()[0]
+        else: order_id = None
+        stmt = update(watch).where(watch.c.watch_id==watch_id, watch.c.status=="for_sale").values(status=status, order_id = order_id)
         await session.execute(stmt)
         await session.commit()
 
@@ -123,5 +102,11 @@ async def get_watch_id(tg_id: int):
         res = await session.execute(query)
         res = res.first()
         return res[0]
+
+async def get_ch_msg_db(watch_id: int):
+    async with async_session_maker() as session:
+        query = select(watch.c.channel_message_id).where(watch.c.watch_id==watch_id)
+        res = await session.execute(query)
+        return res.first()[0]
 # async def is
 

@@ -4,9 +4,9 @@ import asyncio
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
 from core.config import ADMIN, CHANNEL
-from core.utils.keyboards import get_kb
+from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
-from core.database.functions import get_admin_message, set_pay_params_db, upd_watch_book_status_db, get_watch_id
+from core.database.functions import get_admin_message, set_pay_params_db, upd_watch_book_status_db, get_watch_id, get_ch_msg_db
 
 def get_book_db(tg_id: int):
     return "1234"
@@ -20,15 +20,19 @@ def book_or_buy_db(tg_id):
 def buy_db(tg_id: int):
     print("куплено в базе")
 
-async def send_qr(call: types.CallbackQuery, state: FSMContext):
+async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    watch_id = await get_watch_id(call.from_user.id)
+    msg = await get_ch_msg_db(watch_id)
+    await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=None)
+    await upd_watch_book_status_db(call.from_user.id, watch_id)
     await state.set_state(UserFSM.pay)
     #здесь идет поллинг бд
     qr = await call.message.answer("Здесь присылается QRcode. Далее идет поллинг сервера в ожидании ответа об оплате")
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
-    await asyncio.sleep(10)
+    await asyncio.sleep(10) 
     await qr.delete()
-    
-    print("QRRRRRRRRRRR")
+    await upd_watch_book_status_db(tg_id=call.from_user.id,watch_id=watch_id, status="for_sale", order_none=True)
+    await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(msg))
 
 
 user_router = Router()
@@ -60,7 +64,8 @@ async def no_buy(call: types.CallbackQuery, state: FSMContext):
     await call.message.answer("Хорошо. Другие товары вы можете найти на канале 'канал'. \
                               Чтобы снова вернуться к бронированию или покупке, используйте команду book")
 
-@user_router.callback_query(UserFSM.start, F.data=="book" or F.data=="buy")
+@user_router.callback_query(UserFSM.start, F.data=="book")
+@user_router.callback_query(UserFSM.start, F.data=="buy")
 async def yes_buy(call: types.CallbackQuery, state: FSMContext):
     await state.set_state(UserFSM.network)
     await state.update_data(book_or_buy="book")
@@ -74,7 +79,8 @@ async def yes_buy(call: types.CallbackQuery, state: FSMContext):
     
     await call.message.answer("Выберете сеть для оплаты", reply_markup=keyboard)
 
-@user_router.callback_query(UserFSM.network, F.data=="trc20" or F.data=="erc20")
+@user_router.callback_query(UserFSM.network, F.data=="trc20")
+@user_router.callback_query(UserFSM.network, F.data=="erc20")
 async def network(call: types.CallbackQuery, state: FSMContext):
     await state.update_data(network = call.data)
     
@@ -90,10 +96,10 @@ def pay_data_conv(data: dict):
     Покупка/бронирование - {bob}
     Сеть - {data["network"]}
     адрес - {data['address']}
-    Цена - {data["price"]}'''
+    Цена - {data["price"]} USD'''
     return msg
 
-@user_router.message(UserFSM.address, F.text)
+@user_router.message(UserFSM.address, F.text.isalnum())
 async def address(message: types.Message, state: FSMContext):
     await state.update_data(address=message.text)
     data = await state.get_data()
@@ -114,7 +120,7 @@ async def cancel_book(call: types.CallbackQuery, state: FSMContext):
     await call.message.answer("Нажмите /book чтобы ввести данные занаво")
 
 @user_router.callback_query(UserFSM.confirm, F.data=="continue_book")
-async def address(call: types.CallbackQuery, state: FSMContext):
+async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     await call.message.answer("Высылаю ссылку для оплаты")
     await state.set_state(UserFSM.qr)
     
@@ -138,8 +144,7 @@ async def address(call: types.CallbackQuery, state: FSMContext):
     resp = await resp.json()
     
     if int(resp["statusCode"])==403: #200
-        await upd_watch_book_status_db(call.from_user.id, await get_watch_id(call.from_user.id))
-        await send_qr(call, state)
+        await send_qr(call, state, bot)
         return
     elif int(resp["statusCode"])==403:
         await call.message.answer("Ненадежный адрес. Введите другой адрес")

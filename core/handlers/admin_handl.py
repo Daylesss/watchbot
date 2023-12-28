@@ -27,8 +27,8 @@ async def get_channel_post(message: types.Message, state: FSMContext):
 
 @admin_router.message(F.from_user.id==int(ADMIN), AdminFSM.price, F.text)
 async def get_price(message: types.Message, state: FSMContext):
-    is_price = validate_price(message.text)
-    if not(is_price):
+
+    if not(message.text.isdigit()):
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
 
@@ -49,7 +49,7 @@ async def check_post(message: types.Message, state: FSMContext, bot: Bot):
     await message.answer("Отправить данное сообщение?", reply_markup=get_kb({"Отправить": "yes_post", "Не отправлять": "no_post"}, [2]))
 
 
-@admin_router.message(F.from_user.id==int(ADMIN), AdminFSM.name, F.text.isdigit())
+@admin_router.message(F.from_user.id==int(ADMIN), AdminFSM.name, F.text)
 async def get_name(message: types.Message, state: FSMContext, bot: Bot):
     await state.update_data(name =message.text)
     await message.answer("Принято")

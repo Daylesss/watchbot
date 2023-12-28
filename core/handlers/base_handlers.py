@@ -18,20 +18,20 @@ def booking(a: bool):
 
 base_router = Router(name="Main")
 
-def get_pay_kb():
-    converter_kb= InlineKeyboardBuilder()
-    converter_kb.button(text='Плати', callback_data='Плати', url="https://t.me/Develop4581_bot")
-    converter_kb.adjust(1)
-    return converter_kb.as_markup()
+# def get_pay_kb():
+#     converter_kb= InlineKeyboardBuilder()
+#     converter_kb.button(text='Плати', callback_data='Плати', url="https://t.me/Develop4581_bot")
+#     converter_kb.adjust(1)
+#     return converter_kb.as_markup()
 
 @base_router.startup()
 async def start_bot(bot: Bot):
     await set_command(bot)
-    await bot.send_message(chat_id=CHANNEL, text="Courses bot started.", reply_markup=get_pay_kb())
+    await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
-    await bot.send_message(ADMIN, "Courses bot stopped.")
+    await bot.send_message(ADMIN, "Bot stopped.")
 
 
 @base_router.message(Command("start"))
@@ -54,6 +54,32 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
         return
     if user_watch=="bought":
         await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
+        return
+    
+    await state.set_state(UserFSM.start)
+    await get_book(message=message, state=state, bot=bot)
+    
+
+@base_router.message(Command("book"))
+async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
+    await state.clear()
+    
+    # if str(message.from_user.id)==str(ADMIN):
+    #     await message.answer("Отправьте сообщение с товаром")
+    #     await state.set_state(AdminFSM.start)
+    #     return
+
+    await message.answer("Сейчас посмотрю, что вы бронировали.")
+    
+    user_watch = await get_user_order_db(message.from_user.id)
+    if user_watch=="no_watch":
+        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала', чтобы выбрать часы")
+        return
+    if user_watch=="bought":
+        await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
+    if user_watch=="booking":
+        await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
+            Попробуйте забронировать через 5 минут или выберете другой товар")
         return
     
     await state.set_state(UserFSM.start)
