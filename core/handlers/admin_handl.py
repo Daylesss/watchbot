@@ -22,7 +22,7 @@ admin_router = Router()
 async def get_channel_post(message: types.Message, state: FSMContext):
     await state.update_data(message = message.message_id)
     
-    await message.answer("Записал, введите цену  в ддолларах целым числом." )
+    await message.answer("Записал, введите цену  в долларах целым числом." )
     await state.set_state(AdminFSM.price)
 
 @admin_router.message(F.from_user.id==int(ADMIN), AdminFSM.price, F.text)
@@ -57,6 +57,10 @@ async def get_name(message: types.Message, state: FSMContext, bot: Bot):
 
 @admin_router.callback_query(F.from_user.id==int(ADMIN), AdminFSM.check, F.data=="yes_post")
 async def send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     data = await state.get_data()
 
     keyboard = get_book_kb(data['watch_id'])
@@ -65,6 +69,14 @@ async def send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     await upd_channel_msg_id(data["watch_id"], msg.message_id)
     await call.message.answer("Сообщение отправлено")
 
-
+@admin_router.callback_query(F.from_user.id==int(ADMIN), AdminFSM.check, F.data=="no_post")
+async def not_send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
+    await state.clear()
+    
+    await call.message.answer("Отправка отменена")
 
 

@@ -59,6 +59,10 @@ async def get_book(message: types.Message, state: FSMContext, bot: Bot):
 
 @user_router.callback_query(UserFSM.start, F.data=="no_buy")
 async def no_buy(call: types.CallbackQuery, state: FSMContext):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     await state.clear()
     
     await call.message.answer("Хорошо. Другие товары вы можете найти на канале 'канал'. \
@@ -67,6 +71,10 @@ async def no_buy(call: types.CallbackQuery, state: FSMContext):
 @user_router.callback_query(UserFSM.start, F.data=="book")
 @user_router.callback_query(UserFSM.start, F.data=="buy")
 async def yes_buy(call: types.CallbackQuery, state: FSMContext):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     await state.set_state(UserFSM.network)
     await state.update_data(book_or_buy="book")
     
@@ -82,6 +90,10 @@ async def yes_buy(call: types.CallbackQuery, state: FSMContext):
 @user_router.callback_query(UserFSM.network, F.data=="trc20")
 @user_router.callback_query(UserFSM.network, F.data=="erc20")
 async def network(call: types.CallbackQuery, state: FSMContext):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     await state.update_data(network = call.data)
     
     await state.set_state(UserFSM.address)
@@ -116,11 +128,19 @@ async def address(message: types.Message, state: FSMContext):
 
 @user_router.callback_query(UserFSM.confirm, F.data=="cancel_book")
 async def cancel_book(call: types.CallbackQuery, state: FSMContext):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     await state.clear()
     await call.message.answer("Нажмите /book чтобы ввести данные занаво")
 
 @user_router.callback_query(UserFSM.confirm, F.data=="continue_book")
 async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    try:   
+        await call.message.edit_reply_markup(reply_markup=None)
+    except:
+        print("не удалось удалить кнопки")
     await call.message.answer("Высылаю ссылку для оплаты")
     await state.set_state(UserFSM.qr)
     

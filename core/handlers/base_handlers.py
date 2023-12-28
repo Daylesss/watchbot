@@ -37,6 +37,7 @@ async def stop_bot(bot:Bot):
 @base_router.message(Command("start"))
 async def start(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
+
     await new_user_db(message.from_user.id, message.from_user.username)
     await message.answer("Привет я бот для покупки/бронирования часов.")
 
@@ -63,11 +64,6 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
 @base_router.message(Command("book"))
 async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
-    
-    # if str(message.from_user.id)==str(ADMIN):
-    #     await message.answer("Отправьте сообщение с товаром")
-    #     await state.set_state(AdminFSM.start)
-    #     return
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
@@ -87,11 +83,12 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
 @base_router.message(F.from_user.id==ADMIN)
 async def get_other(message: types.Message, state: FSMContext):
-    await message.answer("Чтобы отправить пост нажмите команду start")
+    await message.answer("Чтобы отправить пост нажмите команду /start")
 
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
 async def test(call: types.CallbackQuery, bot: Bot):
     # await upd_channel_msg_id(int(call.data), call.message.message_id)
+    await call.answer()
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
 
     await new_order_db(call.from_user.id, int(call.data))
