@@ -5,6 +5,7 @@ class UserFSM(StatesGroup):
     start = State()
     network = State()
     address = State()
+    confirm = State()
     qr = State()
     pay = State()
 

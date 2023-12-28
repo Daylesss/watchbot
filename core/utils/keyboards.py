@@ -1,6 +1,8 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from typing import List
 
+from core.config import BOT_LINK
+
 def get_kb(buttons: dict, adjust: List[int]):
     kb= InlineKeyboardBuilder()
     for k, i in buttons.items():
@@ -14,7 +16,7 @@ def get_kb(buttons: dict, adjust: List[int]):
     
 def get_book_kb(callback: str):
     kb= InlineKeyboardBuilder()
-    kb.button(text="Бронировать", callback_data=f"book-{callback}", url="https://t.me/Develop4581_bot")
-    kb.button(text="Купить", callback_data=f"buy-{callback}", url="https://t.me/Develop4581_bot")
+    kb.button(text="Купить", callback_data=f"{callback}")#, url=BOT_LINK)
+    kb.button(text="Продолжить в боте", url=BOT_LINK)
     kb.adjust(1,1)
     return kb.as_markup()
