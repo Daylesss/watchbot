@@ -27,7 +27,7 @@ base_router = Router(name="Main")
 @base_router.startup()
 async def start_bot(bot: Bot):
     await set_command(bot)
-    await bot.send_message(chat_id=ADMIN+"2", text="Bot started.")
+    await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
@@ -72,7 +72,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
     user_watch = await get_user_order_db(message.from_user.id)
-    if user_watch=="no_watch":
+    if user_watch=="no_order":
         await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала' и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
@@ -81,7 +81,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
             Попробуйте забронировать через 5 минут или выберете другой товар")
         return
-    
+
     await state.set_state(UserFSM.start)
     await get_book(message=message, state=state, bot=bot)
 
@@ -90,20 +90,12 @@ async def get_other(message: types.Message, state: FSMContext):
     await message.answer("Чтобы отправить пост нажмите команду /start")
 
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
-async def test(call: types.CallbackQuery, bot: Bot):
+async def book_from_channel(call: types.CallbackQuery, bot: Bot):
     # await upd_channel_msg_id(int(call.data), call.message.message_id)
     await call.answer("Товар выбран, перейдите в бота, чтобы купить его")
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
 
     await new_order_db(call.from_user.id, int(call.data))
-    
+
     if not(is_new):
         await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Нажмите /book чтобы забронировать или купить его.")
-
-
-# @base_router.callback_query()
-# async def test_db(call: types.CallbackQuery):
-#     # print(call.from_user.id)
-#     call.
-#     await new_user(call.from_user.id, call.from_user.username)
-#     print("Все")

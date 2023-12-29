@@ -14,9 +14,9 @@ def get_kb(buttons: dict, adjust: List[int]):
     # converter_kb.adjust(1)
     # return converter_kb.as_markup()
     
-def get_book_kb(callback: str):
+def get_book_kb(watch_id: str):
     kb= InlineKeyboardBuilder()
-    kb.button(text="Купить", callback_data=f"{callback}")#, url=BOT_LINK)
+    kb.button(text="Купить", callback_data=f"{watch_id}")#, url=BOT_LINK)
     kb.button(text="Продолжить в боте", url=BOT_LINK)
     kb.adjust(1,1)
     return kb.as_markup()

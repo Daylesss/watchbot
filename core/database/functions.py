@@ -19,21 +19,19 @@ async def get_user_order_db(tg_id: int):
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id==order.c.order_id, isouter=True)\
             .join(watch, watch.c.watch_id==order.c.watch_id, isouter=True)
-        query = select(watch.c.status).select_from(j)
+        query = select(watch.c.status).select_from(j).where(user.c.tg_id==tg_id)
         res = await session.execute(query)
         res = res.first()
         if not(res[0]):
-            print("NO_ORDER")
             return "no_order"
         
-        print(res[0])
         return res[0]
 
 
-async def get_admin_message(tg_id: int):
+async def get_channel_message(tg_id: int):
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id==order.c.order_id).join(watch, order.c.watch_id==watch.c.watch_id)
-        query = select(watch.c.admin_message_id).select_from(j)
+        query = select(watch.c.channel_message_id).select_from(j)
         res = await session.execute(query)
         res = res.first()
         return res[0]

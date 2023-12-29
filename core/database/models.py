@@ -22,9 +22,7 @@ user = Table(
     Column("user_id", Integer, primary_key=True),
     Column("tg_id", Integer, nullable=False, unique=True),
     Column("username", String),
-    # Column("current_watch_id", Integer),
     Column("order_id", Integer),
-    # Column("email", String, nullable=False),
     Column("registered_at", TIMESTAMP, default=datetime.utcnow)
 )
 
@@ -34,7 +32,6 @@ order = Table(
     Column("order_id", Integer, primary_key=True),
     Column("tg_id", Integer, ForeignKey("user.tg_id"), nullable=False),
     Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
-    # Column("user_message_id", Integer),
     Column("book_or_buy", String),
     Column("order_price", Integer),
     Column("network", String),

@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from core.config import ADMIN, CHANNEL
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
-from core.database.functions import get_admin_message, set_pay_params_db, upd_watch_book_status_db, get_watch_id, get_ch_msg_db
+from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db, get_watch_id, get_ch_msg_db
 
 def get_book_db(tg_id: int):
     return "1234"
@@ -29,7 +29,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     #здесь идет поллинг бд
     qr = await call.message.answer("Здесь присылается QRcode. Далее идет поллинг сервера в ожидании ответа об оплате")
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
-    await asyncio.sleep(10) 
+    await asyncio.sleep(300) 
     await qr.delete()
     await upd_watch_book_status_db(tg_id=call.from_user.id,watch_id=watch_id, status="for_sale", order_none=True)
     await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(msg))
@@ -39,14 +39,9 @@ user_router = Router()
 
 async def get_book(message: types.Message, state: FSMContext, bot: Bot):
     
-    book_msg = await get_admin_message(message.from_user.id)
+    book_msg = await get_channel_message(message.from_user.id)
     
-    # if is_booked_db(message.from_user.id):
-    #     await message.answer("Извините товар уже зарезервирован")
-    #     return
-    
-    await bot.copy_message(message.from_user.id, 1146756342, book_msg)
-    # print("сообщение")
+    await bot.copy_message(message.from_user.id, CHANNEL, book_msg, reply_markup=None)
 
     buttons = {
         "Бронировать": "book",

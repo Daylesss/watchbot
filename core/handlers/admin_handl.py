@@ -6,14 +6,6 @@ from core.utils.FSM import AdminFSM
 from core.utils.keyboards import get_kb, get_book_kb
 from core.database.functions import insert_watch_db, upd_channel_msg_id
 
-def validate_price(price):
-    return True
-
-def add_watch(data):
-    print("Товар добавлен")
-
-def get_callback():
-    return "123"
 
 admin_router = Router()
 
@@ -41,7 +33,7 @@ async def check_post(message: types.Message, state: FSMContext, bot: Bot):
     data = await state.get_data()
     watch_id = await insert_watch_db(data)
     await state.update_data(watch_id = watch_id)
-    
+
     keyboard = get_book_kb(watch_id)
     await bot.copy_message(message.from_user.id, message.from_user.id, data['message'], reply_markup=keyboard)
     
@@ -62,10 +54,8 @@ async def send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     except:
         print("не удалось удалить кнопки")
     data = await state.get_data()
-
     keyboard = get_book_kb(data['watch_id'])
     msg= await bot.copy_message(CHANNEL, call.from_user.id, data['message'], reply_markup=keyboard)
-    print(msg.message_id)
     await upd_channel_msg_id(data["watch_id"], msg.message_id)
     await call.message.answer("Сообщение отправлено")
 
