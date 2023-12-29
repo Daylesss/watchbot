@@ -27,7 +27,7 @@ base_router = Router(name="Main")
 @base_router.startup()
 async def start_bot(bot: Bot):
     await set_command(bot)
-    await bot.send_message(chat_id=ADMIN, text="Bot started.")
+    await bot.send_message(chat_id=ADMIN+"2", text="Bot started.")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
@@ -50,16 +50,20 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
     user_watch = await get_user_order_db(message.from_user.id)
-    if user_watch=="no_watch":
+
+    if user_watch=="no_order":
         await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала', чтобы выбрать часы")
         return
     if user_watch=="bought":
         await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
         return
+    if user_watch=="booking":
+        await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
+            Попробуйте забронировать через 5 минут или выберете другой товар")
     
     await state.set_state(UserFSM.start)
     await get_book(message=message, state=state, bot=bot)
-    
+
 
 @base_router.message(Command("book"))
 async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
@@ -69,7 +73,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     
     user_watch = await get_user_order_db(message.from_user.id)
     if user_watch=="no_watch":
-        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала', чтобы выбрать часы")
+        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала' и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
         await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
@@ -88,7 +92,7 @@ async def get_other(message: types.Message, state: FSMContext):
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
 async def test(call: types.CallbackQuery, bot: Bot):
     # await upd_channel_msg_id(int(call.data), call.message.message_id)
-    await call.answer()
+    await call.answer("Товар выбран, перейдите в бота, чтобы купить его")
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
 
     await new_order_db(call.from_user.id, int(call.data))
