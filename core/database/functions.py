@@ -89,9 +89,12 @@ async def upd_watch_book_status_db(tg_id: int, watch_id: int, status: str= "book
             res = await session.execute(query)
             order_id = res.first()[0]
         else: order_id = None
-        stmt = update(watch).where(watch.c.watch_id==watch_id, watch.c.status=="for_sale").values(status=status, order_id = order_id)
-        await session.execute(stmt)
-        await session.commit()
+        query = select(watch.c.status).where(watch.c.watch_id==watch_id).with_for_update()
+        res = (await session.execute(query)).first()
+        if res[0]=="for_sale":
+            stmt = update(watch).where(watch.c.watch_id==watch_id).values(status=status, order_id = order_id)
+            await session.execute(stmt)
+            await session.commit()
 
 async def get_watch_id(tg_id: int):
     async  with async_session_maker() as session:
@@ -107,4 +110,25 @@ async def get_ch_msg_db(watch_id: int):
         res = await session.execute(query)
         return res.first()[0]
 # async def is
-
+# def update_watch_id(order_id, new_watch_id):
+#     with SessionLocal() as session:
+#         try:
+#             # Начало транзакции
+#             session.begin()
+            
+#             # Пессимистичная блокировка и проверка состояния watch_id
+#             order = session.execute(
+#                 select(order_table).where(order_table.c.id == order_id).with_for_update()
+#             ).scalar_one_or_none()
+            
+#             # Обновление watch_id, если он все еще None
+#             if order and order['watch_id'] is None:
+#                 session.execute(
+#                     order_table.update().where(order_table.c.id == order_id).values(watch_id=new_watch_id)
+#                 )
+#                 session.commit()
+#                 print(f"Order {order_id} watch_id updated to: {new_watch_id}")
+#             else:
+#                 print(f"Order {order_id} is already taken or does not exist.")
+#                 session.rollback()
+#         except OperationalError as e:
