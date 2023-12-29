@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 20
+sleep 10
 
 alembic upgrade head
 
