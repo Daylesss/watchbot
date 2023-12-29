@@ -6,33 +6,51 @@ from aiogram.fsm.context import FSMContext
 from core.config import ADMIN, CHANNEL
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
-from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db, get_watch_id, get_ch_msg_db
+from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db
+from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order
 
-def get_book_db(tg_id: int):
-    return "1234"
-
-def is_booked_db(tg_id: int):
-    return False
-
-def book_or_buy_db(tg_id):
-    return 1
-
-def buy_db(tg_id: int):
-    print("куплено в базе")
+def parse_order(username: str, order: tuple):
+    if order[0]=="book":
+        book = "ЗАБРОНИРОВАЛ"
+    else:
+        book = "КУПИЛ"
+    
+    return f"Пользователь: @{username} \{book} следующий товар \за {order[2]} USD:"
+    
 
 async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     watch_id = await get_watch_id(call.from_user.id)
     msg = await get_ch_msg_db(watch_id)
     await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=None)
-    await upd_watch_book_status_db(call.from_user.id, watch_id)
+    is_for_sale = await upd_watch_book_status_db(call.from_user.id, watch_id)
+    if not(is_for_sale):
+        await state.clear()
+        await call.message.answer("извините, данный товар в настоящий момент бронируется другим человеком. Попробуйте через пять минут или выберете другой товар.")
+        return
     await state.set_state(UserFSM.pay)
     #здесь идет поллинг бд
     qr = await call.message.answer("Здесь присылается QRcode. Далее идет поллинг сервера в ожидании ответа об оплате")
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
-    await asyncio.sleep(300) 
+    is_bought = False
+    for i in range(3):
+        await asyncio.sleep(5) 
+        if await get_watch_status(watch_id)=="bought":
+            is_bought = True
+            break
+    if not(is_bought):
+        await qr.delete()
+        await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="booking", new_status="for_sale", order_none=True)
+        await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
+        await call.message.answer("Время для оплаты истекло")
+        await state.clear()
+        return
+
     await qr.delete()
-    await upd_watch_book_status_db(tg_id=call.from_user.id,watch_id=watch_id, status="for_sale", order_none=True)
-    await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(msg))
+    await state.clear()
+    order = await get_user_order(watch_id)
+    await bot.send_message(ADMIN, parse_order(call.from_user.username, order))
+    await bot.copy_message(ADMIN, CHANNEL, order[2], reply_markup=None)
+    await call.message.answer("Товар успешно оплачен. Администратору уже отправлено сообщение.")
 
 
 user_router = Router()
@@ -168,6 +186,4 @@ async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     else:
         await state.clear()
         await call.message.answer("Что-то пошло не так попробуйте ввести другой адрес или воспользуйтесь командой /book")
-    
-    print(resp)
 

@@ -7,7 +7,7 @@ from core.utils.command import set_command
 from core.database.database import async_session_maker
 from sqlalchemy import select, insert
 from core.database.models import user
-from core.database.functions import new_user_db, get_user_order_db, upd_channel_msg_id, new_order_db
+from core.database.functions import new_user_db, get_user_watch_status_db, upd_channel_msg_id, new_order_db, get_user_order
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from core.utils.FSM import UserFSM, AdminFSM
 from core.handlers.user_handlers import get_book
@@ -49,7 +49,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
-    user_watch = await get_user_order_db(message.from_user.id)
+    user_watch = await get_user_watch_status_db(message.from_user.id)
 
     if user_watch=="no_order":
         await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала', чтобы выбрать часы")
@@ -71,12 +71,13 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
-    user_watch = await get_user_order_db(message.from_user.id)
+    user_watch = await get_user_watch_status_db(message.from_user.id)
     if user_watch=="no_order":
         await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала' и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
         await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
+        return
     if user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
             Попробуйте забронировать через 5 минут или выберете другой товар")
@@ -94,7 +95,6 @@ async def book_from_channel(call: types.CallbackQuery, bot: Bot):
     # await upd_channel_msg_id(int(call.data), call.message.message_id)
     await call.answer("Товар выбран, перейдите в бота, чтобы купить его")
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
-
     await new_order_db(call.from_user.id, int(call.data))
 
     if not(is_new):

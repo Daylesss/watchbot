@@ -55,7 +55,7 @@ async def send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
         print("не удалось удалить кнопки")
     data = await state.get_data()
     keyboard = get_book_kb(data['watch_id'])
-    msg= await bot.copy_message(CHANNEL, call.from_user.id, data['message'], reply_markup=keyboard)
+    msg= await bot.copy_message(chat_id=CHANNEL, from_chat_id=call.from_user.id, message_id=data['message'], reply_markup=keyboard)
     await upd_channel_msg_id(data["watch_id"], msg.message_id)
     await call.message.answer("Сообщение отправлено")
 
