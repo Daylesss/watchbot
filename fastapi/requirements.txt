@@ -6,3 +6,4 @@ aiogram
 fastapi
 uvicorn
 gunicorn
+pillow

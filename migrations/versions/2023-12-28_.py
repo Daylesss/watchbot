@@ -43,7 +43,7 @@ def upgrade() -> None:
     sa.Column('tg_id', sa.Integer(), nullable=False),
     sa.Column('watch_id', sa.Integer(), nullable=False),
     sa.Column('book_or_buy', sa.String(), nullable=True),
-    sa.Column('order_price', sa.Integer(), nullable=True),
+    sa.Column('order_price', sa.Double(), nullable=True),
     sa.Column('network', sa.String(), nullable=True),
     sa.Column('address', sa.String(), nullable=True),
     sa.Column('order_status', sa.String(), nullable=True),

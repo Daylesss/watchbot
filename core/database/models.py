@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, ForeignKey, JSON, Boolean, MetaData
+from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, ForeignKey, JSON, Boolean, MetaData, Double
 from core.database.database import metadata
 
 
@@ -33,7 +33,7 @@ order = Table(
     Column("tg_id", Integer, ForeignKey("user.tg_id"), nullable=False),
     Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
     Column("book_or_buy", String),
-    Column("order_price", Integer),
+    Column("order_price", Double),
     Column("network", String),
     Column("address", String),
     Column("order_status", String, default="waiting"),
