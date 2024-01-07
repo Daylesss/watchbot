@@ -7,7 +7,7 @@ app = FastAPI()
 @app.post("/webhook/{tg_id}")
 async def get_webhook(tg_id: int, payment: dict):
     await watch_status_done(tg_id)
-    print(payment)
+
     with open("payments.txt", "a", encoding= "utf-8") as f:
         f.write(str(payment))
     return

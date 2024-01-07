@@ -88,6 +88,21 @@ async def get_book(message: types.Message, state: FSMContext, bot: Bot):
     keyboard = get_kb(buttons=buttons, adjust=[1,1,1])
     await message.answer("Хотите купить или забронировать данный товар?", reply_markup=keyboard)
 
+async def get_book2(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    
+    book_msg = await get_channel_message(call.from_user.id)
+    
+    await bot.copy_message(call.from_user.id, CHANNEL, book_msg, reply_markup=None)
+
+    buttons = {
+        "Бронировать": "book",
+        "Купить": "buy",
+        "Отмена": "no_buy"
+    }
+
+    keyboard = get_kb(buttons=buttons, adjust=[1,1,1])
+    await call.message.answer("Хотите купить или забронировать данный товар?", reply_markup=keyboard)
+
 @user_router.callback_query(UserFSM.start, F.data=="no_buy")
 async def no_buy(call: types.CallbackQuery, state: FSMContext):
     try:   
@@ -96,8 +111,8 @@ async def no_buy(call: types.CallbackQuery, state: FSMContext):
         print("не удалось удалить кнопки")
     await state.clear()
     
-    await call.message.answer("Хорошо. Другие товары вы можете найти на канале 'канал'. \
-                              Чтобы снова вернуться к бронированию или покупке, используйте команду book")
+    await call.message.answer("Хорошо. Другие товары вы можете найти на канале <a href='https://t.me/test_danya_channel'>Watch</a>. \
+Чтобы снова вернуться к бронированию или покупке, используйте команду book")
 
 @user_router.callback_query(UserFSM.start, F.data=="book")
 @user_router.callback_query(UserFSM.start, F.data=="buy")
@@ -136,10 +151,12 @@ def pay_data_conv(data: dict):
     if data["book_or_buy"]=="book":
         bob = "покупка"
     msg = f'''Проверьте правильность введенных данных:
-    Покупка/бронирование - {bob}
-    Сеть - {data["network"]}
-    адрес - {data['address']}
-    Цена - {data["price"]} USD'''
+Покупка/бронирование - {bob}
+Сеть - {data["network"]}
+адрес - {data['address']}
+Цена - {data["price"]} USD
+
+После подтверждения у вас будет пять минут на то, чтобы оплатить товар. По истечении времени оплата будет недействительна.'''
     return msg
 
 @user_router.message(UserFSM.address, F.text.isalnum())
@@ -194,7 +211,7 @@ async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
         await call.message.edit_reply_markup(reply_markup=None)
     except:
         print("не удалось удалить кнопки")
-    await call.message.answer("Высылаю ссылку для оплаты")
+    await call.message.answer("Высылаю qrcode для оплаты")
     await state.set_state(UserFSM.qr)
     
     data = await state.get_data()

@@ -3,14 +3,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
 import os
 from core.config import ADMIN, CHANNEL
+from core.utils.keyboards import get_kb
 from core.utils.command import set_command
-from core.database.database import async_session_maker
-from sqlalchemy import select, insert
-from core.database.models import user
 from core.database.functions import new_user_db, get_user_watch_status_db, upd_channel_msg_id, new_order_db, get_user_order
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 from core.utils.FSM import UserFSM, AdminFSM
-from core.handlers.user_handlers import get_book
+from core.handlers.user_handlers import get_book, get_book2
 
 
 def booking(a: bool):
@@ -18,11 +15,6 @@ def booking(a: bool):
 
 base_router = Router(name="Main")
 
-# def get_pay_kb():
-#     converter_kb= InlineKeyboardBuilder()
-#     converter_kb.button(text='Плати', callback_data='Плати', url="https://t.me/Develop4581_bot")
-#     converter_kb.adjust(1)
-#     return converter_kb.as_markup()
 
 @base_router.startup()
 async def start_bot(bot: Bot):
@@ -52,10 +44,10 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
     user_watch = await get_user_watch_status_db(message.from_user.id)
 
     if user_watch=="no_order":
-        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала', чтобы выбрать часы")
+        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='https://t.me/test_danya_channel'>Watch</a>, чтобы выбрать часы")
         return
     if user_watch=="bought":
-        await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
+        await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='https://t.me/test_danya_channel'>Watch</a>")
         return
     if user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
@@ -73,10 +65,10 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     
     user_watch = await get_user_watch_status_db(message.from_user.id)
     if user_watch=="no_order":
-        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал 'название канала' и нажмите купить, чтобы выбрать часы")
+        await message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='https://t.me/test_danya_channel'>Watch</a> и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
-        await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал 'название канала'")
+        await message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='https://t.me/test_danya_channel'>Watch</a>")
         return
     if user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
@@ -85,6 +77,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
     await state.set_state(UserFSM.start)
     await get_book(message=message, state=state, bot=bot)
+    
 
 @base_router.message(F.from_user.id==ADMIN)
 async def get_other(message: types.Message, state: FSMContext):
@@ -98,4 +91,33 @@ async def book_from_channel(call: types.CallbackQuery, bot: Bot):
     await new_order_db(call.from_user.id, int(call.data))
 
     if not(is_new):
-        await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Нажмите /book чтобы забронировать или купить его.")
+        await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Перейти к оплате?", reply_markup=get_kb({"Да": "yes_to_pay", "Нет": "no_to_pay"}, [2]))
+
+
+
+@base_router.callback_query(F.data=="yes_to_pay")
+async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
+    await call.message.edit_reply_markup(reply_markup=None)
+    await state.clear()
+
+    await call.message.answer("Сейчас посмотрю, что вы бронировали.")
+    
+    user_watch = await get_user_watch_status_db(call.from_user.id)
+    if user_watch=="no_order":
+        await call.message.answer("Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='https://t.me/test_danya_channel'>Watch</a> и нажмите купить, чтобы выбрать часы")
+        return
+    if user_watch=="bought":
+        await call.message.answer("К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='https://t.me/test_danya_channel'>Watch</a>")
+        return
+    if user_watch=="booking":
+        await call.message.answer("Данный товар в настоящее время бронируется другим покупателем. \
+            Попробуйте забронировать через 5 минут или выберете другой товар")
+        return
+
+    await state.set_state(UserFSM.start)
+    await get_book2(call=call, state=state, bot=bot)
+
+@base_router.callback_query(F.data=="no_to_pay")
+async def no_to_pay(call: types.CallbackQuery, state: FSMContext):
+    await call.message.edit_reply_markup(reply_markup=None)
+    await state.clear()  
