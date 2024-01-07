@@ -7,7 +7,7 @@ import aiohttp
 from PIL import Image, ImageDraw, ImageFont
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
-from core.config import ADMIN, CHANNEL, WEBHOOK
+from core.config import ADMIN, CHANNEL, WEBHOOK, SECRET
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
 from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db
@@ -33,16 +33,6 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         await call.message.answer("извините, данный товар в настоящий момент бронируется другим человеком. Попробуйте через пять минут или выберете другой товар.")
         return
     await state.set_state(UserFSM.pay)
-    #здесь идет поллинг бд
-    # async with aiohttp.ClientSession() as session:
-    #     resp = await session.post("http://78.40.216.26:3001/payment", json = {"payerAddress": "0xc631A4fd3bC7b7B14159C8976276f75BCEAe054a",
-    #       "amount": 200,
-    #       "network": "erc20",
-    #       "webhookUrl": "https://webhook.site/9a6543b8-8016-47c3-96f4-85c4c4c63524",
-    #       "hash": "7a465529d6d65d5add2b1b2c731ec8fc",
-    #       "payment_type": "investment",
-    #       })
-    #     res = await resp.json()
     qrcd = data.get("qrCode")
     font_path = r"DejaVuSansMono.ttf"  
     font_size = 24
@@ -58,7 +48,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
     is_bought = False
-    for i in range(10):
+    for i in range(60):
         await asyncio.sleep(5) 
         if await get_watch_status(watch_id)=="Done":
             is_bought = True
@@ -177,7 +167,7 @@ def make_hash(data: dict, tg_id: int):
     }
     hash_list = list(hash_dict2.keys())
     hash_list = sorted(hash_list)
-    hash_str = "".join(str(hash_dict2[i]) for i in hash_list)+"secret"
+    hash_str = "".join(str(hash_dict2[i]) for i in hash_list)+SECRET
 
     hash = hashlib.md5(hash_str.encode()).hexdigest()
     return {

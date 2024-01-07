@@ -11,9 +11,3 @@ async def get_webhook(tg_id: int, payment: dict):
     with open("payments.txt", "a", encoding= "utf-8") as f:
         f.write(str(payment))
     return
-
-@app.get("/get_payment/{tg_id}")
-async def check_payment(tg_id: int):
-    w_id =await get_watch_id(tg_id)
-    res = "!!!!!!!!!!!!"+str(w_id)+"!!!!!!!!!!!!!!!!"
-    return res
