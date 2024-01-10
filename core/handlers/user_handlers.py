@@ -7,7 +7,7 @@ import aiohttp
 from PIL import Image, ImageDraw, ImageFont
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
-from core.config import ADMIN, CHANNEL, WEBHOOK, SECRET
+from core.config import ADMIN, CHANNEL, WEBHOOK, SECRET, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
 from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db
@@ -111,7 +111,7 @@ async def no_buy(call: types.CallbackQuery, state: FSMContext):
         print("не удалось удалить кнопки")
     await state.clear()
     
-    await call.message.answer("Хорошо. Другие товары вы можете найти на канале <a href='https://t.me/test_danya_channel'>Watch</a>. \
+    await call.message.answer(f"Хорошо. Другие товары вы можете найти на канале <a href='{CHANNEL_LINK}'>Watch</a>. \
 Чтобы снова вернуться к бронированию или покупке, используйте команду book")
 
 @user_router.callback_query(UserFSM.start, F.data=="book")

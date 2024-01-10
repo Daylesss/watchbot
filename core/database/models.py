@@ -39,3 +39,11 @@ order = Table(
     Column("order_status", String, default="waiting"),
     Column("order_registred_at", TIMESTAMP, default=datetime.utcnow),
     )
+
+transaction = Table(
+    "transaction",
+    metadata,
+    Column("transaction_id", Integer, primary_key=True),
+    Column("watch_id", Integer, ForeignKey("watch.c.watch_id"), nullable=False),
+    Column("transaction_data", JSON, nullable=False)
+)

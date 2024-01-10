@@ -55,6 +55,14 @@ order = Table(
     Column("order_registred_at", TIMESTAMP, default=datetime.utcnow),
     )
 
+transaction = Table(
+    "transaction",
+    metadata,
+    Column("transaction_id", Integer, primary_key=True),
+    Column("watch_id", Integer, ForeignKey("watch.c.watch_id"), nullable=False),
+    Column("transaction_data", JSON, nullable=False)
+)
+
 
 
 async def get_watch_id(tg_id: int):
@@ -82,6 +90,15 @@ async def watch_status_done(tg_id: int):
             return True
         else: 
             return False
+
+async def create_transaction(tg_id: int, data: dict):
+    async with async_session_maker() as session:
+        j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)
+        query = select(watch.c.watch_id).select_from(j).where(user.c.tg_id==tg_id)
+        watch_id = (await session.execute(query)).first()[0]
+        stmt = insert(transaction).values(watch_id=watch_id, transaction_data=json.dumps(data))
+        await session.execute(stmt)
+        await session.commit()
             
             
         

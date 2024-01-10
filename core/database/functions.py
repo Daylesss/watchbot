@@ -1,6 +1,7 @@
+import json
 from sqlalchemy import select, insert, update
 from core.database.database import async_session_maker
-from core.database.models import user, order, watch
+from core.database.models import user, order, watch, transaction
 from sqlalchemy.exc import OperationalError
 
 
@@ -130,3 +131,12 @@ async def get_user_order(watch_id: int):
         query = select(order.c.book_or_buy, order.c.order_price, watch.c.channel_message_id).select_from(j).where(watch.c.watch_id==watch_id)
         res = await session.execute(query)
         return res.first()
+
+async def create_transaction(tg_id: int, data: dict):
+    async with async_session_maker() as session:
+        j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)
+        query = select(watch.c.watch_id).select_from(j).where(user.c.tg_id==tg_id)
+        watch_id = (await session.execute(query)).first()[0]
+        stmt = insert(transaction).values(watch_id=watch_id, transaction_data=json.dumps(data))
+        await session.execute(stmt)
+        await session.commit()
