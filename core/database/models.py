@@ -44,6 +44,6 @@ transaction = Table(
     "transaction",
     metadata,
     Column("transaction_id", Integer, primary_key=True),
-    Column("watch_id", Integer, ForeignKey("watch.c.watch_id"), nullable=False),
+    Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
     Column("transaction_data", JSON, nullable=False)
 )
