@@ -10,8 +10,9 @@ from aiogram.fsm.context import FSMContext
 from core.config import ADMIN, CHANNEL, WEBHOOK, SECRET, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
-from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db
-from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order
+from core.handlers.admin_handl import get_files, send_media
+from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db, get_adm_msg_db
+from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order, get_admins_id
 
 def parse_order(username: str, order: tuple):
     if order[0]=="book":
@@ -44,7 +45,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     img.save(qr_name)
     file = types.FSInputFile(qr_name)
     # with open(qr_name, "rb") as f:
-    qr = await call.message.answer_photo(file)
+    qr = await call.message.answer_photo(file, caption=f"Адрес для оплаты: \n `{data.get('depositAddress')}`", parse_mode="MarkDown")
     
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
     is_bought = False
@@ -66,8 +67,32 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     await qr.delete()
     await state.clear()
     order = await get_user_order(watch_id)
-    await bot.send_message(ADMIN, parse_order(call.from_user.username, order))
-    await bot.copy_message(ADMIN, CHANNEL, order[2], reply_markup=None)
+    admins = await get_admins_id()
+    order_parse = parse_order(call.from_user.username, order)
+    watch_id = await get_watch_id(call.from_user.id)
+    # message_id =await get_adm_msg_db(watch_id)
+    # if message_id[0]:
+    #     for admin in admins:
+    #         await bot.send_message(admin, order_parse)
+    #         await bot.copy_message(admin, CHANNEL, order[2], reply_markup=None)
+    #         asyncio.sleep(0.1)
+    # else:
+    files = await get_files(watch_id)
+    if type(files)==type(" "):
+        for admin in admins:
+            await bot.send_message(admin, order_parse)
+            await bot.send_message(chat_id=admin, text=files)
+            asyncio.sleep(0.1)
+    elif type(files)==type(tuple()):
+        for admin in admins:
+            await bot.send_message(admin, order_parse)
+            await send_media(chat=admin, bot=bot, data=files)
+            asyncio.sleep(0.1)
+    else:
+        for admin in admins:
+            await bot.send_message(admin, order_parse)
+            await bot.send_media_group(chat_id=admin, media=files)
+            asyncio.sleep(0.1)
     await call.message.answer("Товар успешно оплачен. Администратору уже отправлено сообщение.")
 
 
@@ -75,9 +100,14 @@ user_router = Router()
 
 async def get_book(message: types.Message, state: FSMContext, bot: Bot):
     
-    book_msg = await get_channel_message(message.from_user.id)
-    
-    await bot.copy_message(message.from_user.id, CHANNEL, book_msg, reply_markup=None)
+    watch_id = await get_watch_id(message.from_user.id)
+    files = await get_files(watch_id)
+    if type(files)==type(" "):
+        await bot.send_message(chat_id=message.from_user.id, text=files)
+    elif type(files)==type(tuple()):
+        await send_media(chat=message.from_user.id, bot=bot, data=files)
+    else:
+        await bot.send_media_group(chat_id=message.from_user.id, media=files)
 
     buttons = {
         "Бронировать": "book",
@@ -90,9 +120,14 @@ async def get_book(message: types.Message, state: FSMContext, bot: Bot):
 
 async def get_book2(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     
-    book_msg = await get_channel_message(call.from_user.id)
-    
-    await bot.copy_message(call.from_user.id, CHANNEL, book_msg, reply_markup=None)
+    watch_id = await get_watch_id(call.from_user.id)
+    files = await get_files(watch_id)
+    if type(files)==type(" "):
+        await bot.send_message(chat_id=call.from_user.id, text=files)
+    elif type(files)==type(tuple()):
+        await send_media(chat=call.from_user.id, bot=bot, data=files)
+    else:
+        await bot.send_media_group(chat_id=call.from_user.id, media=files)
 
     buttons = {
         "Бронировать": "book",

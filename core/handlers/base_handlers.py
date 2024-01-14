@@ -3,12 +3,15 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
 import os
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
-from core.utils.keyboards import get_kb
+from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
-from core.database.functions import new_user_db, get_user_watch_status_db, upd_channel_msg_id, new_order_db, get_user_order
+from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_watch_files_watch
 from core.utils.FSM import UserFSM, AdminFSM
 from core.handlers.user_handlers import get_book, get_book2
+from core.handlers.admin_handl import get_channel_post
+# from core.handlers.user_handlers import user_router
 
+util_router = Router()
 
 def booking(a: bool):
     return a
@@ -16,10 +19,19 @@ def booking(a: bool):
 base_router = Router(name="Main")
 
 
+# @base_router.message()
+# async def for_test(message: types.Message):
+#     id = message.forward_from_chat
+#     await message.answer(f"Отправлено  {id}")
+
 @base_router.startup()
 async def start_bot(bot: Bot):
     await set_command(bot)
-    await bot.send_message(chat_id=ADMIN, text="Bot started.")
+    try:
+        await add_admin_by_id(tg_id=int(ADMIN))
+    except:
+        print("Admin already exists")
+    await bot.send_message(chat_id=ADMIN, text="Bot `started.`", parse_mode="MarkDown")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
@@ -29,14 +41,25 @@ async def stop_bot(bot:Bot):
 @base_router.message(Command("start"))
 async def start(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
+    
+
 
     await new_user_db(message.from_user.id, message.from_user.username)
     await message.answer("Привет я бот для покупки/бронирования часов.")
+    
+    admins = await get_admins_id()
 
 
-    if str(message.from_user.id)==str(ADMIN):
-        await message.answer("Отправьте сообщение с товаром")
+
+    if int(message.from_user.id) in admins:
+        if str(message.from_user.id)==ADMIN:
+            # buttons = ["add_admin","remove_admin"]
+            kb = get_rep_kb()
+        else:
+            kb = None
+        await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
         await state.set_state(AdminFSM.start)
+        await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
         return
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
@@ -77,11 +100,25 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
     await state.set_state(UserFSM.start)
     await get_book(message=message, state=state, bot=bot)
-    
 
-@base_router.message(F.from_user.id==ADMIN)
+
+@util_router.message(F.text=="add_post")
 async def get_other(message: types.Message, state: FSMContext):
-    await message.answer("Чтобы отправить пост нажмите команду /start")
+    await state.clear()
+    admins = await get_admins_id()
+
+
+
+    if int(message.from_user.id) in admins:
+        if str(message.from_user.id)==ADMIN:
+            # buttons = ["add_admin","remove_admin"]
+            kb = get_rep_kb()
+        else:
+            kb = None
+        await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
+        await state.set_state(AdminFSM.start)
+        await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
+        return
 
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
 async def book_from_channel(call: types.CallbackQuery, bot: Bot):
@@ -121,3 +158,4 @@ async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
 async def no_to_pay(call: types.CallbackQuery, state: FSMContext):
     await call.message.edit_reply_markup(reply_markup=None)
     await state.clear()  
+

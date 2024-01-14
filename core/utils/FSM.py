@@ -12,6 +12,10 @@ class UserFSM(StatesGroup):
 
 class AdminFSM(StatesGroup):
     start = State()
+    text = State()
     price = State()
+    price2= State()
     name = State()
     check = State()
+    ADD = State()
+    REMOVE = State()

@@ -1,4 +1,6 @@
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
+from aiogram.types.reply_keyboard_markup import ReplyKeyboardMarkup
+from aiogram.types.keyboard_button import KeyboardButton
 from typing import List
 
 from core.config import BOT_LINK
@@ -20,3 +22,8 @@ def get_book_kb(watch_id: str):
     kb.button(text="Продолжить в боте", url=BOT_LINK)
     kb.adjust(1,1)
     return kb.as_markup()
+
+def get_rep_kb():
+    kb= ReplyKeyboardMarkup(resize_keyboard=True, 
+                            keyboard=[[KeyboardButton(text="add_admin"), KeyboardButton(text="remove_admin")]])
+    return kb
