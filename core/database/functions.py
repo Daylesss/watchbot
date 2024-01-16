@@ -1,5 +1,5 @@
 import json
-from sqlalchemy import select, insert, update
+from sqlalchemy import select, insert, update, desc
 from core.database.database import async_session_maker
 from core.database.models import user, order, watch, transaction, watch_file
 from sqlalchemy.exc import OperationalError
@@ -247,3 +247,9 @@ async def get_watch_files_unique(unique_id:str):
         res = await session.execute(query)
 
         return res.all()
+
+async def get_transaction_data(tg_id: int):
+    async with async_session_maker() as session:
+        query = select(transaction.c.transaction_data).where(transaction.c.tg_id==tg_id).order_by(desc(transaction.c.transaction_time))
+        res = await session.execute(query)
+        return res.first()[0]

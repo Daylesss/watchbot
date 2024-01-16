@@ -48,8 +48,10 @@ transaction = Table(
     "transaction",
     metadata,
     Column("transaction_id", Integer, primary_key=True),
+    Column("tg_id", Integer, nullable=False),
     Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
-    Column("transaction_data", JSON, nullable=False)
+    Column("transaction_data", JSON, nullable=False),
+    Column("transaction_time", TIMESTAMP, default=datetime.utcnow)
 )
 
 watch_file = Table(

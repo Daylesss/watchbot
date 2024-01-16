@@ -12,7 +12,7 @@ from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
 from core.handlers.admin_handl import get_files, send_media
 from core.database.functions import get_channel_message, set_pay_params_db, upd_watch_book_status_db, get_adm_msg_db
-from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order, get_admins_id
+from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order, get_admins_id, get_transaction_data
 
 def parse_order(username: str, order: tuple):
     if order[0]=="book":
@@ -21,6 +21,20 @@ def parse_order(username: str, order: tuple):
         book = "КУПИЛ"
     
     return f"Пользователь: @{username} \n{book} следующий товар за {order[1]} USD:"
+
+def parse_wrong_order(username: str, order: tuple, is_higher: bool):
+    if order[0]=="book":
+        book = "БРОНИРОВАНИЯ"
+    else:
+        book = "ПОКУПКИ"
+    
+    if is_higher:
+        l_h = "МЕНЬШУЮ"
+        y_n = "НЕ"
+    else:
+        l_h = "БОЛЬШУЮ"
+        y_n = ""
+    return f"ВНИМАНИЕ. ТОВАР {y_n} БЫЛ КУПЛЕН. Пользователь: @{username} отправил {l_h} чем предполагалось сумму для {book} следующего товара:"
 
     
 
@@ -49,10 +63,18 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     
     await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
     is_bought = False
+    is_higher = False
+    is_lower = False
     for i in range(60):
         await asyncio.sleep(5) 
-        if await get_watch_status(watch_id)=="Done":
+        status = await get_watch_status(watch_id)
+        if status=="Done" or status=="higher_price":
             is_bought = True
+            if status=="higher_price":
+                is_higher = True
+            break
+        if status=="lower_price":
+            is_wrong = True
             break
 
     os.remove(qr_name)
@@ -63,35 +85,69 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         await call.message.answer("Время для оплаты истекло")
         await state.clear()
         return
+    trans_data = await get_transaction_data(call.from_user.id)
+    if is_lower:
+        await qr.delete()
+        await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="lower_price", new_status="for_sale", order_none=True)
+        await state.clear()
+        order = await get_user_order(watch_id)
+        admins = await get_admins_id()
+        order_parse = parse_wrong_order(call.from_user.username, order, is_higher=False)
+        watch_id = await get_watch_id(call.from_user.id)
+        files = await get_files(watch_id)
+        if type(files)==type(" "):
+            for admin in admins:
+                await bot.send_message(admin, order_parse)
+                await bot.send_message(chat_id=admin, text=files)
+                await bot.send_message(chat_id=admin, text = trans_data)
+                asyncio.sleep(0.1)
+        elif type(files)==type(tuple()):
+            for admin in admins:
+                await bot.send_message(admin, order_parse)
+                await send_media(chat=admin, bot=bot, data=files)
+                await bot.send_message(chat_id=admin, text = trans_data)
+                asyncio.sleep(0.1)
+        else:
+            for admin in admins:
+                await bot.send_message(admin, order_parse)
+                await bot.send_media_group(chat_id=admin, media=files)
+                await bot.send_message(chat_id=admin, text = trans_data)
+                asyncio.sleep(0.1)
+        await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
+        await call.message.answer("Оправленная вами сумма меньше указанной. Товар не куплен. Администратору уже отправлено сообщение.")
+        await state.clear()
+        
 
     await qr.delete()
     await state.clear()
     order = await get_user_order(watch_id)
     admins = await get_admins_id()
-    order_parse = parse_order(call.from_user.username, order)
+    if is_higher:
+        order_parse = parse_wrong_order(call.from_user.username, order, is_higher=True)
+    else:
+        order_parse = parse_order(call.from_user.username, order)
     watch_id = await get_watch_id(call.from_user.id)
-    # message_id =await get_adm_msg_db(watch_id)
-    # if message_id[0]:
-    #     for admin in admins:
-    #         await bot.send_message(admin, order_parse)
-    #         await bot.copy_message(admin, CHANNEL, order[2], reply_markup=None)
-    #         asyncio.sleep(0.1)
-    # else:
     files = await get_files(watch_id)
     if type(files)==type(" "):
         for admin in admins:
             await bot.send_message(admin, order_parse)
             await bot.send_message(chat_id=admin, text=files)
+            if is_higher:
+                await bot.send_message(chat_id=admin, text = trans_data)
             asyncio.sleep(0.1)
     elif type(files)==type(tuple()):
         for admin in admins:
             await bot.send_message(admin, order_parse)
             await send_media(chat=admin, bot=bot, data=files)
+            if is_higher:
+                await bot.send_message(chat_id=admin, text = trans_data)
             asyncio.sleep(0.1)
     else:
         for admin in admins:
             await bot.send_message(admin, order_parse)
             await bot.send_media_group(chat_id=admin, media=files)
+            if is_higher:
+                await bot.send_message(chat_id=admin, text = trans_data)
             asyncio.sleep(0.1)
     await call.message.answer("Товар успешно оплачен. Администратору уже отправлено сообщение.")
 
