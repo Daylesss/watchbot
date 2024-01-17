@@ -61,7 +61,6 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     # with open(qr_name, "rb") as f:
     qr = await call.message.answer_photo(file, caption=f"Адрес для оплаты: \n `{data.get('depositAddress')}`", parse_mode="MarkDown")
     
-    await call.message.answer("Если через пять минут не приходит ответа, сообщение с qr кодом удаляется.")
     is_bought = False
     is_higher = False
     is_lower = False
@@ -85,16 +84,18 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         await call.message.answer("Время для оплаты истекло")
         await state.clear()
         return
+
     trans_data = await get_transaction_data(call.from_user.id)
+    watch_id = await get_watch_id(call.from_user.id)
+    files = await get_files(watch_id)
     if is_lower:
         await qr.delete()
         await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="lower_price", new_status="for_sale", order_none=True)
+        await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
         await state.clear()
         order = await get_user_order(watch_id)
         admins = await get_admins_id()
         order_parse = parse_wrong_order(call.from_user.username, order, is_higher=False)
-        watch_id = await get_watch_id(call.from_user.id)
-        files = await get_files(watch_id)
         if type(files)==type(" "):
             for admin in admins:
                 await bot.send_message(admin, order_parse)
@@ -119,6 +120,10 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         
 
     await qr.delete()
+    try:
+        await bot.delete_message(chat_id=CHANNEL,message_id=msg)
+    except:
+        print("Сообщение не удалено")
     await state.clear()
     order = await get_user_order(watch_id)
     admins = await get_admins_id()
@@ -126,8 +131,6 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         order_parse = parse_wrong_order(call.from_user.username, order, is_higher=True)
     else:
         order_parse = parse_order(call.from_user.username, order)
-    watch_id = await get_watch_id(call.from_user.id)
-    files = await get_files(watch_id)
     if type(files)==type(" "):
         for admin in admins:
             await bot.send_message(admin, order_parse)
@@ -310,6 +313,7 @@ async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     data_new = make_hash(data, call.from_user.id)
     
     print(data_new)
+    await call.message.answer(str(data_new))
 
     timeout = ClientTimeout(total=30)
     

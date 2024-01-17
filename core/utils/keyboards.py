@@ -23,7 +23,11 @@ def get_book_kb(watch_id: str):
     kb.adjust(1,1)
     return kb.as_markup()
 
-def get_rep_kb():
+def get_rep_kb(is_main: bool):
+    if is_main:
+        btn = [[KeyboardButton(text="Отправить пост")],[KeyboardButton(text="Добавить администратора"), KeyboardButton(text="Удалить администратора")]]
+    else: 
+        btn = [[KeyboardButton(text="Отправить пост")]]
     kb= ReplyKeyboardMarkup(resize_keyboard=True, 
-                            keyboard=[[KeyboardButton(text="add_admin"), KeyboardButton(text="remove_admin")]])
+                            keyboard=btn)
     return kb

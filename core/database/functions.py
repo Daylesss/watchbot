@@ -14,13 +14,23 @@ async def new_user_db(tg_id: int, username:str):
             await session.execute(stmt)
             await session.commit()
             return True
-        else: return False
+        else:
+            stmt = update(user).where(user.c.tg_id==tg_id).values(username = username)
+            await session.execute(stmt)
+            await session.commit()
+            return False
 
-async def get_user_by_username(username:str):
+async def exist_user_by_username(username:str):
     async with async_session_maker() as session:
         query = select(user).where(user.c.username==username)
         res = await session.execute(query)
         return bool(res.first())
+
+async def get_user_by_username(username:str):
+    async with async_session_maker() as session:
+        query = select(user.c.tg_id).where(user.c.username==username)
+        res = await session.execute(query)
+        return res.first()[0]
 
 async def get_user_watch_status_db(tg_id: int):
     async with async_session_maker() as session:

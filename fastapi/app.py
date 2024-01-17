@@ -14,14 +14,14 @@ app.add_middleware(
 @app.post("/webhook/{tg_id}")
 async def get_webhook(tg_id: int, data: dict):
     
-    if int(data["orderAmount"])==int(data["totalReceived"]):
+    if int(data["orderAmount"])==int(data["totalRecieved"]):
         for i in range(5):
             is_ok = await set_watch_status(tg_id, "Done")
             if is_ok:
                 break
             else:
                 asyncio.sleep(0.5)
-    elif int(data["orderAmount"])<int(data["totalReceived"]):
+    elif int(data["orderAmount"])<int(data["totalRecieved"]):
         for i in range(5):
             is_ok = await set_watch_status(tg_id, "lower_price")
             if is_ok:
@@ -35,5 +35,6 @@ async def get_webhook(tg_id: int, data: dict):
                 break
             else:
                 asyncio.sleep(0.5)
+
     await create_transaction(tg_id=tg_id, data=data)
 

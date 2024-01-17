@@ -5,10 +5,10 @@ import os
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
-from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_watch_files_watch
+from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_admins_username
 from core.utils.FSM import UserFSM, AdminFSM
 from core.handlers.user_handlers import get_book, get_book2
-from core.handlers.admin_handl import get_channel_post
+from core.handlers.admin_handl import parse_admins
 # from core.handlers.user_handlers import user_router
 
 util_router = Router()
@@ -31,12 +31,26 @@ async def start_bot(bot: Bot):
         await add_admin_by_id(tg_id=int(ADMIN))
     except:
         print("Admin already exists")
-    await bot.send_message(chat_id=ADMIN, text="Bot `started.`", parse_mode="MarkDown")
+    await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
     await bot.send_message(ADMIN, "Bot stopped.")
 
+@base_router.message(F.from_user.id==int(ADMIN), F.text=="Добавить администратора")
+async def pre_add_admin(message: types.Message, state: FSMContext):
+    await state.clear()
+    await state.set_state(AdminFSM.ADD)
+    await message.answer(parse_admins(await get_admins_username()))
+    await message.answer(f"Введите имя пользователя которого хотите сделать админом. Внимание, этот пользователь должен взаимодействовать с ботом до этого хотя бы раз. \n Например: {message.from_user.username}")
+
+
+@base_router.message(F.from_user.id==int(ADMIN), F.text=="Удалить администратора")
+async def pre_remove_admin(message: types.Message, state: FSMContext):
+    await state.clear()
+    await state.set_state(AdminFSM.REMOVE)
+    await message.answer(parse_admins(await get_admins_username()))
+    await message.answer(f"Введите имя пользователя которого исключить из списка админов.  \n Например: {message.from_user.username}")
 
 @base_router.message(Command("start"))
 async def start(message: types.Message, state: FSMContext, bot: Bot):
@@ -54,9 +68,9 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
     if int(message.from_user.id) in admins:
         if str(message.from_user.id)==ADMIN:
             # buttons = ["add_admin","remove_admin"]
-            kb = get_rep_kb()
+            kb = get_rep_kb(is_main=True)
         else:
-            kb = None
+            kb = get_rep_kb(is_main=False)
         await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
         await state.set_state(AdminFSM.start)
         await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
@@ -83,6 +97,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
 @base_router.message(Command("book"))
 async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
+    await new_user_db(message.from_user.id, message.from_user.username)
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
     
@@ -102,8 +117,8 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await get_book(message=message, state=state, bot=bot)
 
 
-@util_router.message(F.text=="add_post")
-async def get_other(message: types.Message, state: FSMContext):
+@base_router.message(F.text=="Отправить пост")
+async def send_adm_post(message: types.Message, state: FSMContext):
     await state.clear()
     admins = await get_admins_id()
 
@@ -111,10 +126,9 @@ async def get_other(message: types.Message, state: FSMContext):
 
     if int(message.from_user.id) in admins:
         if str(message.from_user.id)==ADMIN:
-            # buttons = ["add_admin","remove_admin"]
-            kb = get_rep_kb()
+            kb = get_rep_kb(is_main=True)
         else:
-            kb = None
+            kb = get_rep_kb(is_main=False)
         await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
         await state.set_state(AdminFSM.start)
         await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
@@ -122,7 +136,7 @@ async def get_other(message: types.Message, state: FSMContext):
 
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
 async def book_from_channel(call: types.CallbackQuery, bot: Bot):
-    # await upd_channel_msg_id(int(call.data), call.message.message_id)
+    await new_user_db(call.from_user.id, call.from_user.username)
     await call.answer("Товар выбран, перейдите в бота, чтобы купить его")
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
     await new_order_db(call.from_user.id, int(call.data))

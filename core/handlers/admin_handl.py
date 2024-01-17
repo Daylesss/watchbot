@@ -5,9 +5,9 @@ from core.config import ADMIN, CHANNEL
 from core.utils.FSM import AdminFSM
 from core.utils.keyboards import get_kb, get_book_kb
 from core.database.functions import insert_watch_db, upd_channel_msg_id, get_admins_username
-from core.database.functions import  get_user_by_username, add_admin, delete_admin, insert_watch_media
+from core.database.functions import  exist_user_by_username, add_admin, delete_admin, insert_watch_media
 from core.database.functions import get_watch_files_unique, insert_watch_file, get_watch_files_watch
-from core.database.functions import get_watch_txt
+from core.database.functions import get_watch_txt, get_user_by_username
 
 
 
@@ -96,7 +96,9 @@ async def get_price(message: types.Message, state: FSMContext):
     if not(message.text.isdigit()):
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
-
+    if message.text=="0":
+        await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
+        return
     await state.update_data(price =message.text)
     await message.answer("Принято. Введите цену БРОНИРОВАНИЯ в долларах целым числом.")
     await state.set_state(AdminFSM.price2)
@@ -107,7 +109,9 @@ async def get_price2(message: types.Message, state: FSMContext):
     if not(message.text.isdigit()):
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
-
+    if message.text=="0":
+        await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
+        return
     await state.update_data(price2 =message.text)
     await message.answer("Принято. Введите название")
     await state.set_state(AdminFSM.name)
@@ -152,15 +156,6 @@ async def send_media(chat: str, bot: Bot, data: tuple, kb=None):
 
 async def check_post(message: types.Message, state: FSMContext, bot: Bot):
     data = await state.get_data()
-    # if data.get("message_id", False):   
-    #     watch_id = await insert_watch_db(data)
-    #     await state.update_data(watch_id = watch_id)
-    #     keyboard = get_book_kb(watch_id)
-    #     await bot.copy_message(message.from_user.id, message.from_user.id, data['message_id'], reply_markup=keyboard)
-        
-    #     await state.set_state(AdminFSM.check)
-    #     await message.answer("Отправить данное сообщение?", reply_markup=get_kb({"Отправить": "yes_post", "Не отправлять": "no_post"}, [2]))
-    # else: 
     watch_id = await insert_watch_media(data)
     await state.update_data(watch_id = watch_id)
     keyboard = get_book_kb(watch_id)
@@ -230,16 +225,10 @@ def parse_admins(admins):
 {adm_str}'''
     return text
 
-@admin_router.message(F.from_user.id==int(ADMIN), F.text=="add_admin")
-async def pre_add_admin(message: types.Message, state: FSMContext):
-    await state.set_state(AdminFSM.ADD)
-    await message.answer(parse_admins(await get_admins_username()))
-    await message.answer(f"Введите имя пользователя которого хотите сделать админом. Внимание, этот пользователь должен взаимодействовать с ботом до этого хотя бы раз. \n Например: {message.from_user.username}")
-
 @admin_router.message(AdminFSM.ADD, F.text)
 async def add_admin_handler(message: types.Message, state: FSMContext):
     username = message.text
-    user_exists = await get_user_by_username(username)
+    user_exists = await exist_user_by_username(username)
     if user_exists:
         await add_admin(username)
         await message.answer("Пользователь успешно добавлен в админы")
@@ -248,17 +237,15 @@ async def add_admin_handler(message: types.Message, state: FSMContext):
     else: 
         await message.answer("Такого пользователя нет в базе данных бота. Возможно он сменил username")
 
-@admin_router.message(F.from_user.id==int(ADMIN), F.text=="remove_admin")
-async def pre_remove_admin(message: types.Message, state: FSMContext):
-    await state.set_state(AdminFSM.REMOVE)
-    await message.answer(parse_admins(await get_admins_username()))
-    await message.answer(f"Введите имя пользователя которого исключить из списка админов.  \n Например: {message.from_user.username}")
-
 @admin_router.message(AdminFSM.REMOVE, F.text)
 async def remove_admin_handler(message: types.Message, state: FSMContext):
     username = message.text
-    user_exists = await get_user_by_username(username)
+    user_exists = await exist_user_by_username(username)
     if user_exists:
+        if str(ADMIN)==(await get_user_by_username(username)):
+            await message.answer("Вы не можете удалить главного администратора")
+            await state.clear()
+            return
         await delete_admin(username)
         await message.answer("Пользователь успешно удален из списка админов")
         await state.clear()

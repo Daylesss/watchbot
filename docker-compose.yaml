@@ -8,6 +8,7 @@ services:
       - 1121
     env_file:
       - .env-non-dev
+    restart: always
   bot:
     build:
       context: .
@@ -19,6 +20,7 @@ services:
       - 9998:8000
     depends_on:
       - db
+    restart: always
   fastapi_app:
     build:
       context: ./fastapi
@@ -31,3 +33,4 @@ services:
     depends_on:
       - db
       - bot
+    restart: always
