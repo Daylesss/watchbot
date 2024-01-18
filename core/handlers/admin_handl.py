@@ -18,31 +18,7 @@ admin_router = Router()
 async def get_channel_post(message: types.Message, state: FSMContext):
     
     data = await state.get_data()
-    # data_size = len(data.keys())
     unique_id = data.get("unique_id", False)
-    # if not(unique_id):
-    #     await state.update_data(unique_id = f"{message.from_user.id}{message.message_id}")
-    #     if (message.caption or message.text):
-    #         await state.update_data(message_id = message.message_id)
-    #         await message.answer("Записал, введите цену ПОКУПКИ в долларах целым числом." )
-    #         await state.set_state(AdminFSM.price)
-    #         return
-    #     if message.video:
-    #         file_id = message.video.file_id
-    #         file_type = "video"
-    #     elif message.photo:
-    #         file_id = message.photo[-1].file_id
-    #         file_type = "photo"
-    #     elif message.audio:
-    #         file_id = message.audio.file_id
-    #         file_type = "audio"
-    #     elif message.document:
-    #         file_id = message.document.file_id
-    #         file_type = "document"
-    #     else:
-    #         return
-    #     await insert_watch_file(unique_id = f"{message.from_user.id}{message.message_id}", file_id=file_id, file_type=file_type)
-    #     return
 
     if message.text == "CANCEL":
         await state.clear()
@@ -96,7 +72,7 @@ async def get_price(message: types.Message, state: FSMContext):
     if not(message.text.isdigit()):
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
-    if message.text=="0":
+    if int(message.text)<1:
         await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
         return
     await state.update_data(price =message.text)
@@ -109,7 +85,7 @@ async def get_price2(message: types.Message, state: FSMContext):
     if not(message.text.isdigit()):
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
-    if message.text=="0":
+    if int(message.text)<1:
         await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
         return
     await state.update_data(price2 =message.text)
@@ -145,11 +121,11 @@ async def send_media(chat: str, bot: Bot, data: tuple, kb=None):
     if media_type=="photo":
         msg = await bot.send_photo(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
     if media_type=="video":
-       msg = await bot.send_video(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+       msg = await bot.send_video(chat_id=chat, video=media, caption=caption, reply_markup=kb)
     if media_type=="document":
-       msg = await bot.send_document(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+       msg = await bot.send_document(chat_id=chat, document=media, caption=caption, reply_markup=kb)
     if media_type=="audio":
-       msg = await bot.send_audio(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+       msg = await bot.send_audio(chat_id=chat, audio=media, caption=caption, reply_markup=kb)
     return msg
 
 
@@ -242,7 +218,7 @@ async def remove_admin_handler(message: types.Message, state: FSMContext):
     username = message.text
     user_exists = await exist_user_by_username(username)
     if user_exists:
-        if str(ADMIN)==(await get_user_by_username(username)):
+        if str(ADMIN)==str(await get_user_by_username(username)):
             await message.answer("Вы не можете удалить главного администратора")
             await state.clear()
             return

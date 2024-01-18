@@ -39,6 +39,7 @@ async def stop_bot(bot:Bot):
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Добавить администратора")
 async def pre_add_admin(message: types.Message, state: FSMContext):
+    await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     await state.set_state(AdminFSM.ADD)
     await message.answer(parse_admins(await get_admins_username()))
@@ -47,6 +48,7 @@ async def pre_add_admin(message: types.Message, state: FSMContext):
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Удалить администратора")
 async def pre_remove_admin(message: types.Message, state: FSMContext):
+    await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     await state.set_state(AdminFSM.REMOVE)
     await message.answer(parse_admins(await get_admins_username()))
@@ -119,6 +121,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
 @base_router.message(F.text=="Отправить пост")
 async def send_adm_post(message: types.Message, state: FSMContext):
+    await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     admins = await get_admins_id()
 
