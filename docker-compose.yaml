@@ -1,4 +1,6 @@
 version: "3.7"
+volumes:
+  pgdata:
 services:
   db:
     image: postgres:15
@@ -9,6 +11,8 @@ services:
     env_file:
       - .env-non-dev
     restart: always
+    volumes:
+      - /home/dayless/IT/progs/python_code/bots/watchbot/postgres_data:/var/lib/postgresql/data
   bot:
     build:
       context: .
