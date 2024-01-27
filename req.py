@@ -25,14 +25,16 @@ def make_hash(data: dict):
     "hash": hash
     }
 
-data = {"address": "0x3C9ef2e502D76025577fc4ff904aA81CF614205e",
+data = {"address": "0xA38B14B60971f6B01643C0aCDc54EcDDfF2E91Cd",
         "price": 1,
     "network": "erc20"}
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        res = await session.post("http://78.40.216.26:3001/payment", json= make_hash(data))
+        res = await session.post("http://164.90.205.52:3001/payment", json= make_hash(data))
+        print(res)
         res = await res.json()
+        print(res)
     qrcd = res.get("qrCode")
     font_path = r"DejaVuSansMono.ttf"  
     font_size = 24
