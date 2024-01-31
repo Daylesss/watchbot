@@ -8,7 +8,7 @@ def make_hash(data: dict):
     "payerAddress": data["address"],
     "amount": data["price"],
     "network": data["network"],
-    "webhookUrl": "https://webhook.site/9a6543b8-8016-47c3-96f4-85c4c4c63524",
+    "webhookUrl": "https://webhook-test.com/088182844c158e86e1636156dbabd546",
     "payment_type": "investment",
     }
     hash_list = list(hash_dict2.keys())
@@ -20,30 +20,30 @@ def make_hash(data: dict):
     "payerAddress": data["address"],
     "amount": data["price"],
     "network": data["network"],
-    "webhookUrl": "https://webhook.site/9a6543b8-8016-47c3-96f4-85c4c4c63524",
+    "webhookUrl": "https://webhook-test.com/088182844c158e86e1636156dbabd546",
     "payment_type": "investment",
     "hash": hash
     }
 
-data = {"address": "0xA38B14B60971f6B01643C0aCDc54EcDDfF2E91Cd",
+data = {"address": "0x0261036567Bf14666C67a35C2A204eb302E11D85",
         "price": 1,
     "network": "erc20"}
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        res = await session.post("http://164.90.205.52:3001/payment", json= make_hash(data))
+        res = await session.post("https://webhook-test.com/088182844c158e86e1636156dbabd546", json= make_hash(data))
         print(res)
-        res = await res.json()
-        print(res)
-    qrcd = res.get("qrCode")
-    font_path = r"DejaVuSansMono.ttf"  
-    font_size = 24
-    font = ImageFont.truetype(font_path, font_size)
-    img = Image.new('RGB', (580, 550), color=(255,255,255))
-    d = ImageDraw.Draw(img)
-    d.text((0, 0), qrcd, font=font, fill=(0, 0, 0))
-    qr_name = f"test.png"
-    img.save(qr_name)
+    #     res = await res.json()
+    #     print(res)
+    # qrcd = res.get("qrCode")
+    # font_path = r"DejaVuSansMono.ttf"  
+    # font_size = 24
+    # font = ImageFont.truetype(font_path, font_size)
+    # img = Image.new('RGB', (580, 550), color=(255,255,255))
+    # d = ImageDraw.Draw(img)
+    # d.text((0, 0), qrcd, font=font, fill=(0, 0, 0))
+    # qr_name = f"test.png"
+    # img.save(qr_name)
 
 if __name__=="__main__":
     asyncio.run(main())

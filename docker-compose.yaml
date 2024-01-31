@@ -2,12 +2,11 @@ version: "3.7"
 volumes:
   pgdata:
 services:
-  db:
+  bot_db:
     image: postgres:15
-    container_name: db_app
-    command: -p 1121
-    expose:
-      - 1121
+    container_name: bot_db
+    ports:
+      - 1121:5432
     env_file:
       - .env-non-dev
     restart: always
@@ -23,18 +22,18 @@ services:
     ports:
       - 9998:8000
     depends_on:
-      - db
+      - bot_db
     restart: always
   fastapi_app:
     build:
       context: ./fastapi
     env_file: 
       - .env-non-dev
-    container_name: app
+    container_name: fastapi_app
     command: ["/app/fast.sh"]
     ports:
       - 9000:8000
     depends_on:
-      - db
+      - bot_db
       - bot
     restart: always
