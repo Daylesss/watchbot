@@ -66,15 +66,19 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     is_lower = False
     for i in range(60):
         await asyncio.sleep(5) 
-        status = await get_watch_status(watch_id)
-        if status=="Done" or status=="higher_price":
-            is_bought = True
-            if status=="higher_price":
-                is_higher = True
-            break
-        if status=="lower_price":
-            is_wrong = True
-            break
+        print("step", flush=True)
+        try:
+            status = await get_watch_status(watch_id)
+            if status=="Done" or status=="higher_price":
+                is_bought = True
+                if status=="higher_price":
+                    is_higher = True
+                break
+            if status=="lower_price":
+                is_wrong = True
+                break
+        except Exception as err:
+            print(err, flush=True)
 
     os.remove(qr_name)
     if not(is_bought):
@@ -313,12 +317,12 @@ async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     data_new = make_hash(data, call.from_user.id)
     
     print(data_new)
-    await call.message.answer(str(data_new))
+   # await call.message.answer(str(data_new))
 
     timeout = ClientTimeout(total=30)
     
     async with ClientSession(timeout=timeout) as session:
-        resp = await session.post("http://78.40.216.26:3001/payment", json=data_new)
+        resp = await session.post("http://bc-microservice:3001/payment", json=data_new)
         statusCode = resp.status
         resp = await resp.json()
     

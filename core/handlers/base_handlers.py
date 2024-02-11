@@ -5,7 +5,7 @@ import os
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
-from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_admins_username
+from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_admins_username, get_watch_status
 from core.utils.FSM import UserFSM, AdminFSM
 from core.handlers.user_handlers import get_book, get_book2
 from core.handlers.admin_handl import parse_admins
@@ -57,7 +57,8 @@ async def pre_remove_admin(message: types.Message, state: FSMContext):
 @base_router.message(Command("start"))
 async def start(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
-    
+    #res = await get_watch_status(6)
+   # print(str(res), flush = True)
 
 
     await new_user_db(message.from_user.id, message.from_user.username)

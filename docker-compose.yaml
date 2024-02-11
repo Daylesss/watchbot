@@ -10,8 +10,10 @@ services:
     env_file:
       - .env-non-dev
     restart: always
+    networks:
+      - network1
     volumes:
-      - /home/dayless/IT/progs/python_code/bots/watchbot/postgres_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
   bot:
     build:
       context: .
@@ -23,6 +25,8 @@ services:
       - 9998:8000
     depends_on:
       - bot_db
+    networks:
+      - network1
     restart: always
   fastapi_app:
     build:
@@ -36,4 +40,10 @@ services:
     depends_on:
       - bot_db
       - bot
+    networks:
+      - network1
     restart: always
+networks:
+  network1:
+    name: watch-blockchain_default
+    external: true
