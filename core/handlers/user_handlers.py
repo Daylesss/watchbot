@@ -78,7 +78,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
                 is_wrong = True
                 break
         except Exception as err:
-            print(err, flush=True)
+            print(err.with_traceback(), flush=True)
 
     os.remove(qr_name)
     if not(is_bought):

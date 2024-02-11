@@ -1,7 +1,11 @@
+import logging
 from fastapi import FastAPI
 import asyncio
 from database import set_watch_status, create_transaction
 from fastapi.middleware.cors import CORSMiddleware
+
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 app = FastAPI()
 app.add_middleware(
@@ -13,12 +17,15 @@ app.add_middleware(
 
 @app.post("/webhook/{tg_id}")
 async def get_webhook(tg_id: int, data: dict):
+    logging.info(f"Webhook received {data}")
     print(f"Webhook received {data}", flush=True)
     if int(data["orderAmount"])==int(data["totalRecieved"]):
         for i in range(5):
             try:
                 is_ok = await set_watch_status(tg_id, "Done")
-            except:
+            except Exception as er:
+                logging.error(er, exc_info=True)
+                print(er, flush = True)
                 continue
             if is_ok:
                 break
@@ -28,7 +35,9 @@ async def get_webhook(tg_id: int, data: dict):
         for i in range(5):
             try:
                 is_ok = await set_watch_status(tg_id, "lower_price")
-            except:
+            except Exception as er:
+                logging.error(er, exc_info=True)
+                print(er, flush = True)
                 continue
             if is_ok:
                 break
@@ -38,12 +47,15 @@ async def get_webhook(tg_id: int, data: dict):
         for i in range(5):
             try:
                 is_ok = await set_watch_status(tg_id, "higher_price")
-            except:
+            except Exception as er:
+                logging.error(er, exc_info=True)
+                print(er, flush = True)
                 continue
             if is_ok:
                 break
             else:
                 asyncio.sleep(0.5)
-    print("Creating transaction", flush=True)
+    logging.info(f"Creating transaction tg_id = {tg_id} {data}")
+    print(f"Creating transaction tg_id = {tg_id} {data}", flush=True)
     await create_transaction(tg_id=tg_id, data=data)
 

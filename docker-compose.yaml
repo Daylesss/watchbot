@@ -1,6 +1,7 @@
 version: "3.7"
 volumes:
   pgdata:
+  fastapidata:
 services:
   bot_db:
     image: postgres:15
@@ -42,6 +43,8 @@ services:
       - bot
     networks:
       - network1
+    volumes:
+      - fastapidata:/app
     restart: always
 networks:
   network1:

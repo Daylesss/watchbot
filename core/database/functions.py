@@ -1,9 +1,12 @@
 import json
+# from functools import wraps
 from sqlalchemy import select, insert, update, desc
 from core.database.database import async_session_maker
 from core.database.models import user, order, watch, transaction, watch_file
 from sqlalchemy.exc import OperationalError
 
+# async def wrapper(func, *args, **kwargs):
+#     async def wrapper
 
 async def new_user_db(tg_id: int, username:str):
     async with async_session_maker() as session:
