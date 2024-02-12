@@ -7,8 +7,7 @@ from core.utils.keyboards import get_kb, get_book_kb
 from core.database.functions import insert_watch_db, upd_channel_msg_id, get_admins_username
 from core.database.functions import  exist_user_by_username, add_admin, delete_admin, insert_watch_media
 from core.database.functions import get_watch_files_unique, insert_watch_file, get_watch_files_watch
-from core.database.functions import get_watch_txt, get_user_by_username
-
+from core.database.functions import get_watch_txt, get_user_by_username, retry
 
 
 admin_router = Router()
@@ -92,6 +91,7 @@ async def get_price2(message: types.Message, state: FSMContext):
     await message.answer("Принято. Введите название")
     await state.set_state(AdminFSM.name)
 
+@retry(2, 2)
 async def get_files(watch_id):
     files_and_types = await get_watch_files_watch(watch_id)
     files = []

@@ -1,7 +1,8 @@
+import os
+import logging
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
-import os
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
@@ -27,6 +28,7 @@ base_router = Router(name="Main")
 @base_router.startup()
 async def start_bot(bot: Bot):
     await set_command(bot)
+    logging.info("commands")
     try:
         await add_admin_by_id(tg_id=int(ADMIN))
     except:

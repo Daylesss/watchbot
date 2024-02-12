@@ -75,7 +75,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
                     is_higher = True
                 break
             if status=="lower_price":
-                is_wrong = True
+                is_lower = True
                 break
         except Exception as err:
             print(err.with_traceback(), flush=True)
@@ -87,7 +87,8 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
         await call.message.answer("Время для оплаты истекло")
         await state.clear()
-        return
+        if not is_lower:
+            return
 
     trans_data = await get_transaction_data(call.from_user.id)
     watch_id = await get_watch_id(call.from_user.id)

@@ -11,7 +11,11 @@ from core.handlers.user_handlers import user_router
 
 async def main():
     bot=Bot(token=BOT_TOKEN, parse_mode='HTML')
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(message)s",
+        handlers=[logging.StreamHandler(), logging.FileHandler(filename = "logs/py_log.log")]
+        )
     
     dp=Dispatcher()
 

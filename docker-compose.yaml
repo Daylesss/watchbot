@@ -2,6 +2,7 @@ version: "3.7"
 volumes:
   pgdata:
   fastapidata:
+  botdata:
 services:
   bot_db:
     image: postgres:15
@@ -9,10 +10,10 @@ services:
     ports:
       - 1121:5432
     env_file:
-      - .env-non-dev
+      - .env
     restart: always
-    networks:
-      - network1
+    # networks:
+    #   - network1
     volumes:
       - pgdata:/var/lib/postgresql/data
   bot:
@@ -26,9 +27,11 @@ services:
       - 9998:8000
     depends_on:
       - bot_db
-    networks:
-      - network1
+    # networks:
+    #   - network1
     restart: always
+    volumes:
+      - /home/dayless/IT/progs/python_code/bots/watchbot/py_log.log:/bot/logs
   fastapi_app:
     build:
       context: ./fastapi
@@ -41,12 +44,12 @@ services:
     depends_on:
       - bot_db
       - bot
-    networks:
-      - network1
+    # networks:
+    #   - network1
     volumes:
       - fastapidata:/app
     restart: always
-networks:
-  network1:
-    name: watch-blockchain_default
-    external: true
+# networks:
+#   network1:
+#     name: watch-blockchain_default
+#     external: true

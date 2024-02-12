@@ -1,12 +1,30 @@
 import json
-# from functools import wraps
+import asyncio
+import logging
+from functools import wraps
 from sqlalchemy import select, insert, update, desc
 from core.database.database import async_session_maker
 from core.database.models import user, order, watch, transaction, watch_file
 from sqlalchemy.exc import OperationalError
 
-# async def wrapper(func, *args, **kwargs):
-#     async def wrapper
+def retry(times=2, sleep_for: int = 3):
+    def decorator(func):
+        @wraps(func)
+        async def newfn(*args, **kwargs):
+            attempt = 0
+            while attempt < times:
+                try:
+                    print("IT WORKS!!", flush = True)
+                    return await func(*args, **kwargs)
+                except Exception as err:
+                    logging.error(f"RETRY {err}", exc_info=True)
+                    print(err, flush=True)
+                    attempt += 1
+                    asyncio.sleep(sleep_for)
+            return func(*args, **kwargs)
+        return newfn
+    return decorator
+        
 
 async def new_user_db(tg_id: int, username:str):
     async with async_session_maker() as session:
@@ -125,26 +143,25 @@ async def set_pay_params_db(tg_id: int, data:dict):
         await session.commit()
     return price
 
-
+@retry(3, 3)
 async def upd_watch_book_status_db(tg_id: int, watch_id: int, old_status:str = "for_sale", new_status: str= "booking", order_none: bool=False):
     async with async_session_maker() as session:
-        try:
-            if not(order_none):
-                query = select(user.c.order_id).where(user.c.tg_id==tg_id)
-                res = await session.execute(query)
-                order_id = res.first()[0]
-            else: order_id = None
-            query = select(watch.c.status).where(watch.c.watch_id==watch_id).with_for_update()
-            res = (await session.execute(query)).first()
-            if res[0]==old_status:
-                stmt = update(watch).where(watch.c.watch_id==watch_id).values(status=new_status, order_id = order_id)
-                await session.execute(stmt)
-                await session.commit()
-                return True
-            else:
-                return False
-        except OperationalError:
-            return False
+        if not(order_none):
+            query = select(user.c.order_id).where(user.c.tg_id==tg_id)
+            res = await session.execute(query)
+            order_id = res.first()[0]
+        else: order_id = None
+        query = select(watch.c.status).where(watch.c.watch_id==watch_id).with_for_update()
+        res = (await session.execute(query)).first()
+        if res[0]==old_status:
+            stmt = update(watch).where(watch.c.watch_id==watch_id).values(status=new_status, order_id = order_id)
+            await session.execute(stmt)
+            await session.commit()
+        else: 
+            print("WRONG STATUS", flush = True)
+
+
+
 
 async def get_adm_msg_db(watch_id: int):
     async  with async_session_maker() as session:
@@ -152,6 +169,7 @@ async def get_adm_msg_db(watch_id: int):
         res = await session.execute(query)
         return res.first()
 
+@retry(5, 2)
 async def get_watch_id(tg_id: int):
     async  with async_session_maker() as session:
         j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)
@@ -172,6 +190,7 @@ async def get_watch_status(watch_id: int):
         res = await session.execute(query)
         return res.first()[0]
 
+@retry(3, 3)
 async def get_user_order(watch_id: int):
     async with async_session_maker() as session:
         j = watch.join(order, watch.c.order_id == order.c.order_id)
@@ -200,7 +219,7 @@ async def delete_admin(username: str):
         await session.execute(stmt)
         await session.commit()
 
-
+@retry(3, 3)
 async def get_admins_id():
     async with async_session_maker() as session:
         query = select(user.c.tg_id).where(user.c.is_admin==True)
@@ -261,6 +280,7 @@ async def get_watch_files_unique(unique_id:str):
 
         return res.all()
 
+@retry(3, 3)
 async def get_transaction_data(tg_id: int):
     async with async_session_maker() as session:
         query = select(transaction.c.transaction_data).where(transaction.c.tg_id==tg_id).order_by(desc(transaction.c.transaction_time))

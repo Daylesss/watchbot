@@ -1,4 +1,6 @@
 import json
+import asyncio
+from functools import wraps
 from typing import AsyncGenerator
 from datetime import datetime
 from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, ForeignKey, JSON, Boolean, MetaData, Double
@@ -18,6 +20,23 @@ metadata = MetaData()
 engine = create_async_engine(DATABASE_URL, poolclass=NullPool)
 async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
+def retry(times=2, sleep_for: int = 3):
+    def decorator(func):
+        @wraps(func)
+        async def newfn(*args, **kwargs):
+            attempt = 0
+            while attempt < times:
+                try:
+                    print("IT WORKS!!", flush = True)
+                    return await func(*args, **kwargs)
+                except Exception as err:
+                    print(err, flush=True)
+                    attempt += 1
+                    asyncio.sleep(sleep_for)
+            return func(*args, **kwargs)
+        return newfn
+    return decorator
+        
 
 watch = Table(
     "watch",
@@ -82,7 +101,7 @@ watch_file = Table(
 
 
 
-
+@retry(5, 3)
 async def get_watch_id(tg_id: int):
     async  with async_session_maker() as session:
         j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)
@@ -91,6 +110,7 @@ async def get_watch_id(tg_id: int):
         res = res.first()
         return res[0]
 
+@retry(5, 3)
 async def set_watch_status(tg_id: int, watch_status:str):
     async with async_session_maker() as session:
         try:
@@ -113,6 +133,7 @@ async def set_watch_status(tg_id: int, watch_status:str):
             return False
 
 
+@retry(5, 3)
 async def create_transaction(tg_id: int, data: dict):
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)

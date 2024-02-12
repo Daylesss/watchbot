@@ -11,6 +11,3 @@ RUN pip install -r requirements.txt
 COPY . .
 
 RUN chmod a+x app.sh
-# RUN alembic upgrade head
-
-# CMD ["python", "main.py"]

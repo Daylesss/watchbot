@@ -1,0 +1,12 @@
+2024-02-12 01:28:03,455 INFO commands
+2024-02-12 01:28:03,691 INFO Start polling
+2024-02-12 01:28:03,749 INFO Run polling for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-12 01:33:41,132 WARNING Received SIGINT signal
+2024-02-12 01:33:41,133 INFO Polling stopped for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-12 01:33:41,133 INFO Polling stopped
+2024-02-12 01:40:17,970 INFO commands
+2024-02-12 01:40:18,130 INFO Start polling
+2024-02-12 01:40:18,195 INFO Run polling for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-12 01:57:12,587 WARNING Received SIGINT signal
+2024-02-12 01:57:12,587 INFO Polling stopped for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-12 01:57:12,588 INFO Polling stopped
