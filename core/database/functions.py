@@ -14,8 +14,9 @@ def retry(times=2, sleep_for: int = 3):
             attempt = 0
             while attempt < times:
                 try:
-                    print("IT WORKS!!", flush = True)
-                    return await func(*args, **kwargs)
+                    res = await func(*args, **kwargs)
+                    logging.info(f"Succes %s", res)
+                    return res
                 except Exception as err:
                     logging.error(f"RETRY {err}", exc_info=True)
                     print(err, flush=True)
@@ -28,6 +29,7 @@ def retry(times=2, sleep_for: int = 3):
 
 async def new_user_db(tg_id: int, username:str):
     async with async_session_maker() as session:
+        logging.info(f"Adiing user %s", tg_id)
         query = select(user).where(user.c.tg_id==tg_id)
         query= await session.execute(query)
         if not (query.first()):
@@ -42,18 +44,21 @@ async def new_user_db(tg_id: int, username:str):
             return False
 
 async def exist_user_by_username(username:str):
+    logging.info(f"Existing  user: %s", username)
     async with async_session_maker() as session:
         query = select(user).where(user.c.username==username)
         res = await session.execute(query)
         return bool(res.first())
 
 async def get_user_by_username(username:str):
+    logging.info(f"Getting user %s", username)
     async with async_session_maker() as session:
         query = select(user.c.tg_id).where(user.c.username==username)
         res = await session.execute(query)
         return res.first()[0]
 
 async def get_user_watch_status_db(tg_id: int):
+    logging.info(f"Get watch status")
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id==order.c.order_id, isouter=True)\
             .join(watch, watch.c.watch_id==order.c.watch_id, isouter=True)
@@ -61,12 +66,14 @@ async def get_user_watch_status_db(tg_id: int):
         res = await session.execute(query)
         res = res.first()
         if not(res[0]):
+            logging.info(f"watch status {tg_id} no order")
             return "no_order"
-        
+        logging.info(f"watch status {tg_id} {res[0]}")
         return res[0]
 
 
 async def get_channel_message(tg_id: int):
+    logging.info(f"Getting channel mes {tg_id}")
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id==order.c.order_id).join(watch, order.c.watch_id==watch.c.watch_id)
         query = select(watch.c.channel_message_id).select_from(j)
@@ -75,6 +82,7 @@ async def get_channel_message(tg_id: int):
         return res[0]
 
 async def insert_watch_db(data: dict):
+    logging.info(f"Inserting watch {data}")
     async with async_session_maker() as session:
         stmt = insert(watch).values(watch_name=data["name"], admin_message_id=data["message_id"], price = int(data["price"]), booking_price = int(data["price2"]))\
             .returning(watch.c.watch_id)
@@ -84,6 +92,7 @@ async def insert_watch_db(data: dict):
         return watch_id[0]
 
 async def insert_watch_media(data: dict):
+    logging.info(f"Inserting media {data}")
     async with async_session_maker() as session:
         stmt = insert(watch).values(watch_name=data["name"], unique_file_id=data["unique_id"], msg_txt = data["message_text"],
                                     price = int(data["price"]), booking_price = int(data["price2"]))\
@@ -99,7 +108,9 @@ async def insert_watch_media(data: dict):
 #             res = await session.execute(query)
 #             return json.loads(res.first()[0])
 
+
 async def get_watch_txt(watch_id: int):
+        logging.info(f"Getting text for watch {watch_id}")
         async with async_session_maker() as session:
             query = select(watch.c.msg_txt).where(watch.c.watch_id==watch_id)
             res = await session.execute(query)
@@ -107,6 +118,7 @@ async def get_watch_txt(watch_id: int):
 
     
 async def upd_channel_msg_id(watch_id: int, msg_id: int):
+    logging.info(f"Upd mesg {watch_id}, {msg_id}")
     async with async_session_maker() as session:
         query = select(watch.c.channel_message_id).where(watch.c.watch_id==watch_id)
         res = await session.execute(query)
@@ -117,6 +129,7 @@ async def upd_channel_msg_id(watch_id: int, msg_id: int):
             await session.commit()
 
 async def new_order_db(tg_id: int, watch_id: int):
+    logging.info(f"new order user {tg_id} watch: {watch_id}")
     async with async_session_maker() as session:
         stmt = insert(order).values(tg_id=tg_id, watch_id=watch_id).returning(order.c.order_id)
         order_id = await session.execute(stmt)
@@ -127,6 +140,7 @@ async def new_order_db(tg_id: int, watch_id: int):
         await session.commit()
 
 async def set_pay_params_db(tg_id: int, data:dict):
+    logging.info(f"Setting pay params user: {tg_id} {data}")
     async with async_session_maker() as session:
         j = user.join(order, user.c.order_id == order.c.order_id).join(watch, order.c.watch_id == watch.c.watch_id)
         query = select(watch.c.price, user.c.order_id, watch.c.booking_price).select_from(j).where(user.c.tg_id == tg_id)
@@ -145,6 +159,7 @@ async def set_pay_params_db(tg_id: int, data:dict):
 
 @retry(3, 3)
 async def upd_watch_book_status_db(tg_id: int, watch_id: int, old_status:str = "for_sale", new_status: str= "booking", order_none: bool=False):
+    logging.info(f"Updating status tg:{tg_id} watch: {watch_id} status: {new_status}")
     async with async_session_maker() as session:
         if not(order_none):
             query = select(user.c.order_id).where(user.c.tg_id==tg_id)

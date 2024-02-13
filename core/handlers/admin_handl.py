@@ -1,3 +1,4 @@
+import logging
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import InputMediaAudio, InputMediaPhoto, InputMediaVideo, InputMediaDocument
@@ -15,6 +16,7 @@ admin_router = Router()
 
 @admin_router.message(AdminFSM.start)
 async def get_channel_post(message: types.Message, state: FSMContext):
+    logging.info(f"Getting channel post")
     
     data = await state.get_data()
     unique_id = data.get("unique_id", False)
@@ -29,14 +31,15 @@ async def get_channel_post(message: types.Message, state: FSMContext):
         await message.answer("Введите текст сообщения")
         return
     if message.text:
+        logging.info(f"Text for post {message.text}")
         await state.update_data(message_text = message.text)
-    
         await message.answer("Записал, введите цену ПОКУПКИ в долларах целым числом." )
         await state.set_state(AdminFSM.price)
         return
         
     num_files = len(await get_watch_files_unique(unique_id))
     if num_files==10:
+        logging.info(f"Number of files must be lower then 10")
         await state.set_state(AdminFSM.text)
         await message.answer("Введите текст сообщения")
         return
@@ -60,6 +63,7 @@ async def get_channel_post(message: types.Message, state: FSMContext):
 
 @admin_router.message(AdminFSM.text, F.text)
 async def get_channel__text(message: types.Message, state: FSMContext):
+    logging.info(f"Text for post {message.text}")
     await state.update_data(message_text = message.text)
     
     await message.answer("Записал, введите цену ПОКУПКИ в долларах целым числом." )
@@ -67,11 +71,13 @@ async def get_channel__text(message: types.Message, state: FSMContext):
 
 @admin_router.message(AdminFSM.price, F.text)
 async def get_price(message: types.Message, state: FSMContext):
-
+    logging.info(f"Price {message.text}")
     if not(message.text.isdigit()):
+        logging.info(f"wrong price {message.text}")
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
     if int(message.text)<1:
+        logging.info(f"wrong price {message.text}")
         await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
         return
     await state.update_data(price =message.text)
@@ -80,11 +86,13 @@ async def get_price(message: types.Message, state: FSMContext):
 
 @admin_router.message(AdminFSM.price2, F.text)
 async def get_price2(message: types.Message, state: FSMContext):
-
+    logging.info(f"Price {message.text}")
     if not(message.text.isdigit()):
+        logging.info(f"wrong price {message.text}")
         await message.answer("Неправильная цена. Введите цену ещё раз")
         return
     if int(message.text)<1:
+        logging.info(f"wrong price {message.text}")
         await message.answer("Цена не может быть меньше единицы. Введите цену ещё раз")
         return
     await state.update_data(price2 =message.text)
@@ -96,7 +104,7 @@ async def get_files(watch_id):
     files_and_types = await get_watch_files_watch(watch_id)
     files = []
     caption = await get_watch_txt(watch_id)
-    print(files_and_types)
+    logging.info(f"Get files for watch {watch_id}: {files_and_types}")
     if not(files_and_types):
         return caption
     if len(files_and_types)==1:
@@ -131,11 +139,13 @@ async def send_media(chat: str, bot: Bot, data: tuple, kb=None):
 
 
 async def check_post(message: types.Message, state: FSMContext, bot: Bot):
+    logging.info(f"Check post before sendind")
     data = await state.get_data()
     watch_id = await insert_watch_media(data)
     await state.update_data(watch_id = watch_id)
     keyboard = get_book_kb(watch_id)
     files = await get_files(watch_id)
+    logging.info(f"Get files for watch {watch_id}: {files}")
     if type(files)==type(" "):
         await state.set_state(AdminFSM.check)
         await message.answer(files, reply_markup=keyboard)
@@ -155,6 +165,7 @@ async def check_post(message: types.Message, state: FSMContext, bot: Bot):
 
 @admin_router.message(AdminFSM.name, F.text)
 async def get_name(message: types.Message, state: FSMContext, bot: Bot):
+    logging.info(f"Name of watch {message.text}")
     await state.update_data(name =message.text)
     await message.answer("Принято")
     await check_post(message, state, bot)
@@ -163,12 +174,14 @@ async def get_name(message: types.Message, state: FSMContext, bot: Bot):
 async def send_post(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
-    except:
+    except Exception as err:
+        logging.error(f"Can not selete buttons {err}")
         print("не удалось удалить кнопки")
     data = await state.get_data()
     watch_id = data["watch_id"]
     keyboard = get_book_kb(watch_id)
     files = await get_files(watch_id)
+    logging.info(f"Get files for watch {watch_id}: {files}")
     if type(files)==type(" "):
         msg = await bot.send_message(chat_id=CHANNEL, text=files, reply_markup=keyboard)
         await upd_channel_msg_id(data["watch_id"], msg.message_id)
@@ -204,6 +217,7 @@ def parse_admins(admins):
 @admin_router.message(AdminFSM.ADD, F.text)
 async def add_admin_handler(message: types.Message, state: FSMContext):
     username = message.text
+    logging.info(f"{username} try to become admin")
     user_exists = await exist_user_by_username(username)
     if user_exists:
         await add_admin(username)
@@ -211,21 +225,26 @@ async def add_admin_handler(message: types.Message, state: FSMContext):
         await state.clear()
         return
     else: 
+        logging.info(f"{username} does not exists")
         await message.answer("Такого пользователя нет в базе данных бота. Возможно он сменил username")
 
 @admin_router.message(AdminFSM.REMOVE, F.text)
 async def remove_admin_handler(message: types.Message, state: FSMContext):
     username = message.text
+    logging.info(f"{username} try to become normal")
     user_exists = await exist_user_by_username(username)
     if user_exists:
         if str(ADMIN)==str(await get_user_by_username(username)):
+            logging.warning(f"Can not delete the main admin")
             await message.answer("Вы не можете удалить главного администратора")
             await state.clear()
             return
         await delete_admin(username)
+        logging.info(f"Admin {username} removed")
         await message.answer("Пользователь успешно удален из списка админов")
         await state.clear()
         return
     else: 
+        logging.error(f"{username} does not exists")
         await message.answer("Такого пользователя нет в базе данных бота. Возможно он сменил username")
    

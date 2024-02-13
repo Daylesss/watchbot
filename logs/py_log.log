@@ -10,3 +10,16 @@
 2024-02-12 01:57:12,587 WARNING Received SIGINT signal
 2024-02-12 01:57:12,587 INFO Polling stopped for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
 2024-02-12 01:57:12,588 INFO Polling stopped
+2024-02-13 10:15:08,008 INFO Setting commands to bot 1 1
+2024-02-13 10:15:08,927 INFO Try to add an admin
+2024-02-13 10:15:09,175 ERROR (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "user_tg_id_key"
+DETAIL:  Key (tg_id)=(1146756342) already exists.
+[SQL: INSERT INTO "user" (tg_id, username, is_admin, registered_at) VALUES ($1::INTEGER, $2::VARCHAR, $3::BOOLEAN, $4::TIMESTAMP WITHOUT TIME ZONE) RETURNING "user".user_id]
+[parameters: (1146756342, 'MAIN_ADMIN', True, datetime.datetime(2024, 2, 13, 7, 15, 9, 149827))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-02-13 10:15:09,176 WARNING Admin already exists
+2024-02-13 10:15:09,487 INFO Start polling
+2024-02-13 10:15:09,696 INFO Run polling for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-13 10:15:24,242 WARNING Received SIGINT signal
+2024-02-13 10:15:24,247 INFO Polling stopped for bot @Cutest_test_bot id=6201193657 - 'CuteTestBot'
+2024-02-13 10:15:24,250 INFO Polling stopped

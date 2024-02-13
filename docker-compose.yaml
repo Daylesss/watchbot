@@ -47,7 +47,7 @@ services:
     # networks:
     #   - network1
     volumes:
-      - fastapidata:/app
+      - /home/dayless/IT/progs/python_code/bots/watchbot/py_log.log:/app/logs
     restart: always
 # networks:
 #   network1:

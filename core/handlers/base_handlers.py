@@ -14,12 +14,10 @@ from core.handlers.admin_handl import parse_admins
 
 util_router = Router()
 
-def booking(a: bool):
-    return a
 
 base_router = Router(name="Main")
 
-
+a =1
 # @base_router.message()
 # async def for_test(message: types.Message):
 #     id = message.forward_from_chat
@@ -27,12 +25,14 @@ base_router = Router(name="Main")
 
 @base_router.startup()
 async def start_bot(bot: Bot):
+    logging.info(f"Setting commands to bot {a} %s", a)
     await set_command(bot)
-    logging.info("commands")
     try:
+        logging.info("Try to add an admin")
         await add_admin_by_id(tg_id=int(ADMIN))
-    except:
-        print("Admin already exists")
+    except Exception as err:
+        logging.error(err)
+        logging.warning("Admin already exists")
     await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
@@ -41,6 +41,7 @@ async def stop_bot(bot:Bot):
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Добавить администратора")
 async def pre_add_admin(message: types.Message, state: FSMContext):
+    logging.info("Add an administrator")
     await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     await state.set_state(AdminFSM.ADD)
@@ -50,6 +51,7 @@ async def pre_add_admin(message: types.Message, state: FSMContext):
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Удалить администратора")
 async def pre_remove_admin(message: types.Message, state: FSMContext):
+    logging.info("Remove an administrator")
     await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     await state.set_state(AdminFSM.REMOVE)
@@ -58,6 +60,7 @@ async def pre_remove_admin(message: types.Message, state: FSMContext):
 
 @base_router.message(Command("start"))
 async def start(message: types.Message, state: FSMContext, bot: Bot):
+    logging.info(f"START {message.from_user.id}")
     await state.clear()
     #res = await get_watch_status(6)
    # print(str(res), flush = True)
@@ -82,7 +85,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
         return
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
-    
+    logging.infp(f"Checking orders of user {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
 
     if user_watch=="no_order":
@@ -94,6 +97,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
     if user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
             Попробуйте забронировать через 5 минут или выберете другой товар")
+        return
     
     await state.set_state(UserFSM.start)
     await get_book(message=message, state=state, bot=bot)
@@ -101,11 +105,12 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
 
 @base_router.message(Command("book"))
 async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
+    logging.info(f"BOOK {message.from_user.id}")
     await state.clear()
     await new_user_db(message.from_user.id, message.from_user.username)
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
-    
+    logging.info(f"Check user order  {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
     if user_watch=="no_order":
         await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='{CHANNEL_LINK}'>Watch</a> и нажмите купить, чтобы выбрать часы")
@@ -124,6 +129,28 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
 
 @base_router.message(F.text=="Отправить пост")
 async def send_adm_post(message: types.Message, state: FSMContext):
+    logging.info(f"Try to send new post {message.from_user.id}")
+    await new_user_db(message.from_user.id, message.from_user.username)
+    await state.clear()
+    admins = await get_admins_id()
+
+
+
+    if int(message.from_user.id) in admins:
+        logging.info(f"user {message.from_user.id} is admin")
+        if str(message.from_user.id)==ADMIN:
+            kb = get_rep_kb(is_main=True)
+        else:
+            kb = get_rep_kb(is_main=False)
+        await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
+        await state.set_state(AdminFSM.start)
+        await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
+        return
+    logging.warning(f"user {message.from_user.id} is not admin")
+
+@base_router.message(F.text=="LOGS")
+async def send_adm_post(message: types.Message, state: FSMContext):
+    logging.info(f"Getting logs {message.from_user.id}")
     await new_user_db(message.from_user.id, message.from_user.username)
     await state.clear()
     admins = await get_admins_id()
@@ -135,13 +162,13 @@ async def send_adm_post(message: types.Message, state: FSMContext):
             kb = get_rep_kb(is_main=True)
         else:
             kb = get_rep_kb(is_main=False)
-        await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
-        await state.set_state(AdminFSM.start)
-        await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
-        return
+        
+        await message.answer_document(types.input_file.FSInputFile("logs/py_log.log"))
+    logging.warning(f"user {message.from_user.id} is not admin")
 
 @base_router.callback_query(F.message.chat.id==int(CHANNEL))
 async def book_from_channel(call: types.CallbackQuery, bot: Bot):
+    logging.info(f"User {call.from_user.id} choose watch {call.data}")
     await new_user_db(call.from_user.id, call.from_user.username)
     await call.answer("Товар выбран, перейдите в бота, чтобы купить его")
     is_new = await new_user_db(call.from_user.id, call.from_user.username)
@@ -158,7 +185,7 @@ async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     await state.clear()
 
     await call.message.answer("Сейчас посмотрю, что вы бронировали.")
-    
+    logging.info(f"Check user order  {call.from_user.id}")
     user_watch = await get_user_watch_status_db(call.from_user.id)
     if user_watch=="no_order":
         await call.message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='{CHANNEL_LINK}'>Watch</a> и нажмите купить, чтобы выбрать часы")
@@ -176,6 +203,7 @@ async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
 
 @base_router.callback_query(F.data=="no_to_pay")
 async def no_to_pay(call: types.CallbackQuery, state: FSMContext):
+    logging.info(f"no to pay {call.from_user.id}")
     await call.message.edit_reply_markup(reply_markup=None)
     await state.clear()  
 
