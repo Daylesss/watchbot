@@ -172,8 +172,10 @@ async def upd_watch_book_status_db(tg_id: int, watch_id: int, old_status:str = "
             stmt = update(watch).where(watch.c.watch_id==watch_id).values(status=new_status, order_id = order_id)
             await session.execute(stmt)
             await session.commit()
+            return True
         else: 
             print("WRONG STATUS", flush = True)
+            return False
 
 
 
