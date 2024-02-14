@@ -20,7 +20,7 @@ def check_hash(data: dict):
     if hash == hash_to_check:
         return True
 
-app = FastAPI()
+app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://78.40.216.26:3001"],
