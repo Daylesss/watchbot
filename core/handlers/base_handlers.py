@@ -1,8 +1,10 @@
 import os
 import logging
 from aiogram import Bot, Router, types, F, Router
+from aiogram.exceptions import TelegramForbiddenError
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
+from sqlalchemy.dialects.postgresql.asyncpg import IntegrityError
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
@@ -30,9 +32,8 @@ async def start_bot(bot: Bot):
     try:
         logging.info("Try to add an admin")
         await add_admin_by_id(tg_id=int(ADMIN))
-    except Exception as err:
-        logging.error(err)
-        logging.warning("Admin already exists")
+    except IntegrityError:
+        logging.warning(f"Admin {int(ADMIN)} already exists")
     await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
@@ -85,7 +86,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
         return
 
     await message.answer("Сейчас посмотрю, что вы бронировали.")
-    logging.infp(f"Checking orders of user {message.from_user.id}")
+    logging.info(f"Checking orders of user {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
 
     if user_watch=="no_order":
@@ -175,7 +176,10 @@ async def book_from_channel(call: types.CallbackQuery, bot: Bot):
     await new_order_db(call.from_user.id, int(call.data))
 
     if not(is_new):
-        await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Перейти к оплате?", reply_markup=get_kb({"Да": "yes_to_pay", "Нет": "no_to_pay"}, [2]))
+        try:
+            await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Перейти к оплате?", reply_markup=get_kb({"Да": "yes_to_pay", "Нет": "no_to_pay"}, [2]))
+        except TelegramForbiddenError as err:
+            logging.warning(f"Can not send message to user that exists in db {err}")
 
 
 

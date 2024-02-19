@@ -4,11 +4,9 @@ import os
 import json
 import asyncio
 import aiohttp
-import logging
 from PIL import Image, ImageDraw, ImageFont
 from aiogram import Bot, Router, types, F, Router
 from aiogram.fsm.context import FSMContext
-from sqlalchemy import exc
 from core.config import ADMIN, CHANNEL, WEBHOOK, SECRET, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_book_kb
 from core.utils.FSM import UserFSM
@@ -17,7 +15,6 @@ from core.database.functions import get_channel_message, set_pay_params_db, upd_
 from core.database.functions import get_watch_id, get_ch_msg_db, get_watch_status, get_user_order, get_admins_id, get_transaction_data
 
 def parse_order(username: str, order: tuple):
-    logging.info(f"Parsing order %r %s", username, order)
     if order[0]=="book":
         book = "ЗАБРОНИРОВАЛ"
     else:
@@ -26,7 +23,6 @@ def parse_order(username: str, order: tuple):
     return f"Пользователь: @{username} \n{book} следующий товар за {order[1]} USD:"
 
 def parse_wrong_order(username: str, order: tuple, is_higher: bool):
-    logging.info(f"Parsing WRONG order %s %s %s", username, order, is_higher)
     if order[0]=="book":
         book = "БРОНИРОВАНИЯ"
     else:
@@ -43,18 +39,15 @@ def parse_wrong_order(username: str, order: tuple, is_higher: bool):
     
 
 async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:dict):
-    logging.info(f"Sending qr: %s", data)
     watch_id = await get_watch_id(call.from_user.id)
     msg = await get_ch_msg_db(watch_id)
     await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=None)
     is_for_sale = await upd_watch_book_status_db(call.from_user.id, watch_id)
     if not(is_for_sale):
-        logging.info(f"%s already booking")
         await state.clear()
         await call.message.answer("извините, данный товар в настоящий момент бронируется другим человеком. Попробуйте через пять минут или выберете другой товар.")
         return
     await state.set_state(UserFSM.pay)
-    logging.info(f"Creating qr %s", watch_id)
     qrcd = data.get("qrCode")
     font_path = r"DejaVuSansMono.ttf"  
     font_size = 24
@@ -71,10 +64,9 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
     is_bought = False
     is_higher = False
     is_lower = False
-    logging.info(f"Polling for watch: %s user: %s", watch_id, call.from_user.id)
     for i in range(60):
         await asyncio.sleep(5) 
-        # print("step", flush=True)
+        print("step", flush=True)
         try:
             status = await get_watch_status(watch_id)
             if status=="Done" or status=="higher_price":
@@ -83,28 +75,31 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
                     is_higher = True
                 break
             if status=="lower_price":
-                is_lower = True
+                is_wrong = True
                 break
         except Exception as err:
-            print(err.with_traceback(), flush=True)
-    logging.info(f"Poling ended watch: %s user: %s %s %s %s", watch_id, call.from_user.id, is_bought, is_higher, is_lower)
+            print(err, flush=True)
+
     os.remove(qr_name)
     if not(is_bought):
         await qr.delete()
-        await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="booking", new_status="for_sale", order_none=True)
+        for i in range(5)
+            try:
+                await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="booking", new_status="for_sale", order_none=True)
+            except Exception as er:
+                if i==4:
+                    for admin in admins:
+                        await bot.send_message(chat_id=admin, text = f)
+                        asyncio.sleep(0.1)
         await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
         await call.message.answer("Время для оплаты истекло")
-        logging.info(f"Reset all data for watch: %s", watch_id)
         await state.clear()
-        if not is_lower:
-            return
+        return
 
     trans_data = await get_transaction_data(call.from_user.id)
     watch_id = await get_watch_id(call.from_user.id)
     files = await get_files(watch_id)
-    logging.info(f"watch, trans, files %s %s %s", watch_id, trans_data, files)
     if is_lower:
-        logging.info(f"Is lower watch")
         await qr.delete()
         await upd_watch_book_status_db(tg_id=call.from_user.id, watch_id=watch_id, old_status="lower_price", new_status="for_sale", order_none=True)
         await bot.edit_message_reply_markup(chat_id=CHANNEL,message_id=msg, reply_markup=get_book_kb(watch_id))
@@ -134,7 +129,7 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
         await call.message.answer("Оправленная вами сумма меньше указанной. Товар не куплен. Администратору уже отправлено сообщение.")
         await state.clear()
         
-    logging.info(f"Normal sending")
+
     await qr.delete()
     try:
         await bot.delete_message(chat_id=CHANNEL,message_id=msg)
@@ -168,14 +163,13 @@ async def send_qr(call: types.CallbackQuery, state: FSMContext, bot: Bot, data:d
             if is_higher:
                 await bot.send_message(chat_id=admin, text = trans_data)
             asyncio.sleep(0.1)
-    logging.info(f"All is OK")
     await call.message.answer("Товар успешно оплачен. Администратору уже отправлено сообщение.")
 
 
 user_router = Router()
 
 async def get_book(message: types.Message, state: FSMContext, bot: Bot):
-    logging.info(f"Get book")
+    
     watch_id = await get_watch_id(message.from_user.id)
     files = await get_files(watch_id)
     if type(files)==type(" "):
@@ -195,7 +189,7 @@ async def get_book(message: types.Message, state: FSMContext, bot: Bot):
     await message.answer("Хотите купить или забронировать данный товар?", reply_markup=keyboard)
 
 async def get_book2(call: types.CallbackQuery, state: FSMContext, bot: Bot):
-    logging.info("Get book2: %s %s", call.data, call.from_user.id)
+    
     watch_id = await get_watch_id(call.from_user.id)
     files = await get_files(watch_id)
     if type(files)==type(" "):
@@ -216,7 +210,6 @@ async def get_book2(call: types.CallbackQuery, state: FSMContext, bot: Bot):
 
 @user_router.callback_query(UserFSM.start, F.data=="no_buy")
 async def no_buy(call: types.CallbackQuery, state: FSMContext):
-    logging.info(f"{call.from_user.id} no_buy")
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
     except:
@@ -229,7 +222,6 @@ async def no_buy(call: types.CallbackQuery, state: FSMContext):
 @user_router.callback_query(UserFSM.start, F.data=="book")
 @user_router.callback_query(UserFSM.start, F.data=="buy")
 async def yes_buy(call: types.CallbackQuery, state: FSMContext):
-    logging.info(f"Watch: %s %s", call.data, call.from_user.id)
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
     except:
@@ -249,7 +241,6 @@ async def yes_buy(call: types.CallbackQuery, state: FSMContext):
 @user_router.callback_query(UserFSM.network, F.data=="trc20")
 @user_router.callback_query(UserFSM.network, F.data=="erc20")
 async def network(call: types.CallbackQuery, state: FSMContext):
-    logging.info(f"Watch: %s %s", call.data, call.from_user.id)
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
     except:
@@ -275,7 +266,6 @@ def pay_data_conv(data: dict):
 
 @user_router.message(UserFSM.address, F.text.isalnum())
 async def address(message: types.Message, state: FSMContext):
-    logging.info(f"Watch addres: %s %s", message.text, message.from_user.id)
     await state.update_data(address=message.text)
     data = await state.get_data()
     price = await set_pay_params_db(message.from_user.id, data)
@@ -290,7 +280,6 @@ async def address(message: types.Message, state: FSMContext):
     await message.answer(pay_data_conv(data), reply_markup=keyboard)
 
 def make_hash(data: dict, tg_id: int):
-    logging.info("Making hash %s %s", tg_id, data)
     hash_dict2 = {
     "payerAddress": data["address"],
     "amount": data["price"],
@@ -312,18 +301,8 @@ def make_hash(data: dict, tg_id: int):
     "hash": hash
     }
 
-def check_hash(data: dict):
-    hash = data.pop("hash")
-    hash_list = list(data.keys())
-    hash_list = sorted(hash_list)
-    hash_str = "".join(str(data[i]) for i in hash_list)+SECRET
-    hash_to_check = hashlib.md5(hash_str.encode()).hexdigest()
-    if hash == hash_to_check:
-        return True
-
 @user_router.callback_query(UserFSM.confirm, F.data=="cancel_book")
 async def cancel_book(call: types.CallbackQuery, state: FSMContext):
-    logging.info(f"Canceling book %s", call.from_user.id)
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
     except:
@@ -333,7 +312,6 @@ async def cancel_book(call: types.CallbackQuery, state: FSMContext):
 
 @user_router.callback_query(UserFSM.confirm, F.data=="continue_book")
 async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
-    logging.info(f"Continue booking %s", call.from_user.id)
     try:   
         await call.message.edit_reply_markup(reply_markup=None)
     except:
@@ -349,14 +327,13 @@ async def address(call: types.CallbackQuery, state: FSMContext, bot: Bot):
    # await call.message.answer(str(data_new))
 
     timeout = ClientTimeout(total=30)
-    logging.info(f"Requsting qrcode %s", data_new)
+    
     async with ClientSession(timeout=timeout) as session:
         resp = await session.post("http://bc-microservice:3001/payment", json=data_new)
         statusCode = resp.status
         resp = await resp.json()
-    logging.info(f"Qrcode status code: %s", statusCode)
+    
     if int(statusCode)==201: #200
-
         await send_qr(call, state, bot, resp)
         return
     elif int(statusCode)==403:

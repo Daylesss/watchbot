@@ -2,7 +2,7 @@ import json
 import asyncio
 import logging
 from functools import wraps
-from sqlalchemy import select, insert, update, desc
+from sqlalchemy import select, insert, update, desc, exc
 from core.database.database import async_session_maker
 from core.database.models import user, order, watch, transaction, watch_file
 from sqlalchemy.exc import OperationalError
@@ -17,9 +17,12 @@ def retry(times=2, sleep_for: int = 3):
                     res = await func(*args, **kwargs)
                     logging.info(f"Succes %s", res)
                     return res
+                except exc.DBAPIError as e:
+                    logging.warning("Connection to db refused. Retry")
+                    attempt += 1
+                    asyncio.sleep(sleep_for)
                 except Exception as err:
                     logging.error(f"RETRY {err}", exc_info=True)
-                    print(err, flush=True)
                     attempt += 1
                     asyncio.sleep(sleep_for)
             return func(*args, **kwargs)

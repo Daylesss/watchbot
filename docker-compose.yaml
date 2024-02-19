@@ -47,7 +47,7 @@ services:
     networks:
       - network1
     volumes:
-      - /home/dayless/IT/progs/python_code/bots/watchbot/py_log.log:/app/logs
+      - /root/bot/watchbot/logs:/app/logs
     restart: always
 networks:
   network1:
