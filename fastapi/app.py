@@ -31,8 +31,12 @@ app.add_middleware(
 @app.post("/webhook/{tg_id}")
 async def get_webhook(tg_id: int, data: dict):
     logging.info(f"Webhook received {data}")
-    if not check_hash(data):
+    if not data.get("hash"):
+        logging.error("HASH is not found %s", data)
+        return
+    if check_hash(data):
         logging.error("WRONG HASH %s", data)
+        return 
     if int(data["orderAmount"])==int(data["totalRecieved"]):
         for i in range(5):
             try:

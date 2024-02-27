@@ -4,7 +4,7 @@ from aiogram import Bot, Router, types, F, Router
 from aiogram.exceptions import TelegramForbiddenError
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command
-from sqlalchemy.dialects.postgresql.asyncpg import IntegrityError
+from sqlalchemy import exc
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
@@ -19,7 +19,6 @@ util_router = Router()
 
 base_router = Router(name="Main")
 
-a =1
 # @base_router.message()
 # async def for_test(message: types.Message):
 #     id = message.forward_from_chat
@@ -27,18 +26,29 @@ a =1
 
 @base_router.startup()
 async def start_bot(bot: Bot):
-    logging.info(f"Setting commands to bot {a} %s", a)
+    logging.info(f"Setting commands to bot")
     await set_command(bot)
     try:
         logging.info("Try to add an admin")
         await add_admin_by_id(tg_id=int(ADMIN))
-    except IntegrityError:
+    except exc.DBAPIError:
         logging.warning(f"Admin {int(ADMIN)} already exists")
     await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
 async def stop_bot(bot:Bot):
     await bot.send_message(ADMIN, "Bot stopped.")
+
+@base_router.my_chat_member()
+async def m_ch_mem(message: types.ChatMember):
+    data = message.chat.id
+    logging.info(f"INVITED TO CHAT: {data}")
+    # print(data)
+
+@base_router.chat_member()
+async def ch_m(msg: types.ChatMember):
+    data = msg.chat.id
+    logging.info(f"INVITED TO CHAT: {data}")
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Добавить администратора")
 async def pre_add_admin(message: types.Message, state: FSMContext):

@@ -711,3 +711,92 @@ AttributeError: module 'logging' has no attribute 'infp'
 2024-02-19 21:08:34,662 INFO Succes True
 2024-02-19 21:08:34,794 INFO Reset all data for watch: 128
 2024-02-19 21:08:34,794 INFO Update id=471136608 is handled. Duration 306873 ms by bot id=6443979698
+2024-02-19 22:17:12,124 INFO Setting commands to bot 1 1
+2024-02-19 22:17:12,175 INFO Try to add an admin
+2024-02-19 22:17:12,249 ERROR (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "user_tg_id_key"
+DETAIL:  Key (tg_id)=(1146756342) already exists.
+[SQL: INSERT INTO "user" (tg_id, username, is_admin, registered_at) VALUES ($1::INTEGER, $2::VARCHAR, $3::BOOLEAN, $4::TIMESTAMP WITHOUT TIME ZONE) RETURNING "user".user_id]
+[parameters: (1146756342, 'MAIN_ADMIN', True, datetime.datetime(2024, 2, 19, 22, 17, 12, 242455))]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-02-19 22:17:12,250 WARNING Admin already exists
+2024-02-19 22:17:12,463 INFO Start polling
+2024-02-19 22:17:12,475 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-19 22:21:24,450 INFO Setting commands to bot 1 1
+2024-02-19 22:21:24,482 INFO Try to add an admin
+2024-02-19 22:21:24,578 WARNING Admin 1146756342 already exists
+2024-02-19 22:21:24,767 INFO Start polling
+2024-02-19 22:21:24,780 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-19 22:21:24,833 INFO Getting logs 1146756342
+2024-02-19 22:21:24,834 INFO Adiing user 1146756342
+2024-02-19 22:21:24,980 INFO Succes [1146756342, 731253916]
+2024-02-19 22:21:25,066 WARNING user 1146756342 is not admin
+2024-02-19 22:21:25,067 INFO Update id=471136609 is handled. Duration 236 ms by bot id=6443979698
+2024-02-19 22:27:07,161 INFO Webhook received {'sdvsvd': 'sdcsdvsdv'}
+2024-02-19 22:27:26,253 INFO Getting logs 1146756342
+2024-02-19 22:27:26,253 INFO Adiing user 1146756342
+2024-02-19 22:27:26,415 INFO Succes [1146756342, 731253916]
+2024-02-19 22:27:26,494 WARNING user 1146756342 is not admin
+2024-02-19 22:27:26,494 INFO Update id=471136610 is handled. Duration 244 ms by bot id=6443979698
+2024-02-19 22:29:37,109 INFO Setting commands to bot
+2024-02-19 22:29:37,222 INFO Try to add an admin
+2024-02-19 22:29:37,292 WARNING Admin 1146756342 already exists
+2024-02-19 22:29:37,456 INFO Start polling
+2024-02-19 22:29:37,470 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-19 22:29:44,237 INFO Webhook received {'sdvsvd': 'sdcsdvsdv'}
+2024-02-19 22:38:58,663 INFO Setting commands to bot
+2024-02-19 22:38:58,698 INFO Try to add an admin
+2024-02-19 22:38:58,779 WARNING Admin 1146756342 already exists
+2024-02-19 22:38:58,940 INFO Start polling
+2024-02-19 22:38:58,949 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-19 22:42:39,588 INFO Setting commands to bot
+2024-02-19 22:42:39,621 INFO Try to add an admin
+2024-02-19 22:42:39,699 WARNING Admin 1146756342 already exists
+2024-02-19 22:42:39,859 INFO Start polling
+2024-02-19 22:42:39,869 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-19 22:42:45,352 INFO START 1146756342
+2024-02-19 22:42:45,353 INFO Adiing user 1146756342
+2024-02-19 22:42:45,522 INFO Succes [1146756342, 731253916]
+2024-02-19 22:42:45,556 INFO Update id=471136611 is handled. Duration 205 ms by bot id=6443979698
+2024-02-19 22:42:52,525 INFO Getting logs 1146756342
+2024-02-19 22:42:52,525 INFO Adiing user 1146756342
+2024-02-19 22:42:52,668 INFO Succes [1146756342, 731253916]
+2024-02-19 22:42:52,719 WARNING user 1146756342 is not admin
+2024-02-19 22:42:52,720 INFO Update id=471136612 is handled. Duration 197 ms by bot id=6443979698
+2024-02-20 09:46:15,677 INFO Getting logs 731253916
+2024-02-20 09:46:15,677 INFO Adiing user 731253916
+2024-02-20 09:46:15,819 INFO Succes [1146756342, 731253916]
+2024-02-20 09:46:15,960 WARNING user 731253916 is not admin
+2024-02-20 09:46:15,960 INFO Update id=471136613 is handled. Duration 284 ms by bot id=6443979698
+2024-02-22 04:42:40,435 ERROR Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2024-02-22 04:42:40,435 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 6443979698)
+2024-02-22 04:42:51,452 INFO Connection established (tryings = 1, bot id = 6443979698)
+2024-02-25 01:10:22,710 ERROR Failed to fetch updates - TelegramServerError: Telegram server says - Bad Gateway
+2024-02-25 01:10:22,711 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 6443979698)
+2024-02-25 01:10:23,717 ERROR Failed to fetch updates - TelegramServerError: Telegram server says - Bad Gateway
+2024-02-25 01:10:23,717 WARNING Sleep for 1.566497 seconds and try again... (tryings = 1, bot id = 6443979698)
+2024-02-25 01:10:49,628 INFO Connection established (tryings = 2, bot id = 6443979698)
+2024-02-26 06:40:58,326 INFO START 308912114
+2024-02-26 06:40:58,326 INFO Adiing user 308912114
+2024-02-26 06:40:58,507 INFO Succes [1146756342, 731253916]
+2024-02-26 06:40:58,534 INFO Checking orders of user 308912114
+2024-02-26 06:40:58,534 INFO Get watch status
+2024-02-26 06:40:58,606 INFO watch status 308912114 no order
+2024-02-26 06:40:58,659 INFO Update id=471136614 is handled. Duration 335 ms by bot id=6443979698
+2024-02-26 20:05:16,835 ERROR Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2024-02-26 20:05:16,835 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 6443979698)
+2024-02-26 20:05:27,857 INFO Connection established (tryings = 1, bot id = 6443979698)
+2024-02-27 09:32:09,814 INFO START 1146756342
+2024-02-27 09:32:09,814 INFO Adiing user 1146756342
+2024-02-27 09:32:10,000 INFO Succes [731253916, 1146756342]
+2024-02-27 09:32:10,030 INFO Update id=471136615 is handled. Duration 217 ms by bot id=6443979698
+2024-02-27 10:16:41,148 INFO Setting commands to bot
+2024-02-27 10:16:41,187 INFO Try to add an admin
+2024-02-27 10:16:41,266 WARNING Admin 1146756342 already exists
+2024-02-27 10:16:41,458 INFO Start polling
+2024-02-27 10:16:41,467 INFO Run polling for bot @Develop4581_bot id=6443979698 - 'For_develop'
+2024-02-27 10:19:48,754 INFO INVITED TO CHAT: -1002114833459
+2024-02-27 10:19:48,754 INFO Update id=471136616 is handled. Duration 0 ms by bot id=6443979698
+2024-02-27 10:20:10,070 INFO INVITED TO CHAT: -1002114833459
+2024-02-27 10:20:10,071 INFO Update id=471136617 is handled. Duration 0 ms by bot id=6443979698
+2024-02-27 10:21:05,721 INFO INVITED TO CHAT: -1002114833459
+2024-02-27 10:21:05,722 INFO Update id=471136618 is handled. Duration 0 ms by bot id=6443979698
