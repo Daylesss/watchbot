@@ -39,16 +39,16 @@ async def start_bot(bot: Bot):
 async def stop_bot(bot:Bot):
     await bot.send_message(ADMIN, "Bot stopped.")
 
-@base_router.my_chat_member()
-async def m_ch_mem(message: types.ChatMember):
-    data = message.chat.id
-    logging.info(f"INVITED TO CHAT: {data}")
-    # print(data)
+# @base_router.my_chat_member()
+# async def m_ch_mem(message: types.ChatMember):
+#     data = message.chat.id
+#     logging.info(f"INVITED TO CHAT: {data}")
+#     # print(data)
 
-@base_router.chat_member()
-async def ch_m(msg: types.ChatMember):
-    data = msg.chat.id
-    logging.info(f"INVITED TO CHAT: {data}")
+# @base_router.chat_member()
+# async def ch_m(msg: types.ChatMember):
+#     data = msg.chat.id
+#     logging.info(f"INVITED TO CHAT: {data}")
 
 @base_router.message(F.from_user.id==int(ADMIN), F.text=="Добавить администратора")
 async def pre_add_admin(message: types.Message, state: FSMContext):
