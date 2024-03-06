@@ -100,10 +100,10 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
     user_watch = await get_user_watch_status_db(message.from_user.id)
 
     if user_watch=="no_order":
-        await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='{CHANNEL_LINK}'>Watch</a>, чтобы выбрать часы")
+        await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a> и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
-        await message.answer(f"К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='{CHANNEL_LINK}'>Watch</a>")
+        await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a> и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
@@ -124,12 +124,12 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     logging.info(f"Check user order  {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
     if user_watch=="no_order":
-        await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='{CHANNEL_LINK}'>Watch</a> и нажмите купить, чтобы выбрать часы")
+        await message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a> и нажмите купить, чтобы выбрать часы")
         return
-    if user_watch=="bought":
-        await message.answer(f"К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='{CHANNEL_LINK}'>Watch</a>")
+    elif user_watch=="bought":
+        await message.answer(f"К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в  <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a>")
         return
-    if user_watch=="booking":
+    elif user_watch=="booking":
         await message.answer("Данный товар в настоящее время бронируется другим покупателем. \
             Попробуйте забронировать через 5 минут или выберете другой товар")
         return
@@ -202,10 +202,10 @@ async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     logging.info(f"Check user order  {call.from_user.id}")
     user_watch = await get_user_watch_status_db(call.from_user.id)
     if user_watch=="no_order":
-        await call.message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в канал <a href='{CHANNEL_LINK}'>Watch</a> и нажмите купить, чтобы выбрать часы")
+        await call.message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a> и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="bought":
-        await call.message.answer(f"К сожалению выбранные вами часы уже куплены. Вы можете выбрать другие часы перейдя в канал <a href='{CHANNEL_LINK}'>Watch</a>")
+        await call.message.answer(f"Похоже вы ещё не забронировали ни одного товара. Перейдите в <a href='{CHANNEL_LINK}'>канал часов и аксессуаров Tourbillon Watch</a> и нажмите купить, чтобы выбрать часы")
         return
     if user_watch=="booking":
         await call.message.answer("Данный товар в настоящее время бронируется другим покупателем. \

@@ -910,3 +910,646 @@ DETAIL:  Key (tg_id)=(1146756342) already exists.
 2024-03-04 12:49:58,581 INFO Get files for watch 129: [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIXKWXlw2FR3Lkoq6lK7cJhOek5AAHL4wAC79wxG70nMUsHIR28v7iByAEAAwIAA3kAAzQE', caption='Koko', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIXKmXlw2W5hvoZNGID4PKwiUbGRZPaAALv3DEbvScxSwchHby_uIHIAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
 2024-03-04 12:49:58,962 INFO Update id=471136634 is handled. Duration 810 ms by bot id=6443979698
 2024-03-04 13:01:26,545 INFO Update id=471136635 is handled. Duration 612 ms by bot id=6443979698
+2024-03-06 10:53:37,375 INFO START 2111288764
+2024-03-06 10:53:37,377 INFO Adiing user 2111288764
+2024-03-06 10:53:37,655 INFO Succes [1146756342, 731253916]
+2024-03-06 10:53:37,701 INFO Checking orders of user 2111288764
+2024-03-06 10:53:37,701 INFO Get watch status
+2024-03-06 10:53:37,793 INFO watch status 2111288764 Done
+2024-03-06 10:53:37,799 INFO Get book
+2024-03-06 10:53:37,878 INFO Succes 126
+2024-03-06 10:53:37,977 INFO Getting text for watch 126
+2024-03-06 10:53:38,075 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 10:53:38,075 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 10:53:38,357 INFO Update id=471136636 is handled. Duration 984 ms by bot id=6443979698
+2024-03-06 15:53:33,280 INFO Setting commands to bot
+2024-03-06 15:53:36,094 INFO Try to add an admin
+2024-03-06 15:53:36,195 WARNING Admin 731253916 already exists
+2024-03-06 15:53:36,454 INFO Start polling
+2024-03-06 15:53:36,463 INFO Run polling for bot @tourbillonwatchru_bot id=7163242879 - 'TOURBILLION WATCH BOT'
+2024-03-06 15:53:39,482 INFO START 731253916
+2024-03-06 15:53:39,483 INFO Adiing user 731253916
+2024-03-06 15:53:39,707 INFO Succes [1146756342, 731253916]
+2024-03-06 15:53:39,761 INFO Update id=730414828 is handled. Duration 280 ms by bot id=7163242879
+2024-03-06 15:54:46,306 INFO Try to send new post 731253916
+2024-03-06 15:54:46,307 INFO Adiing user 731253916
+2024-03-06 15:54:46,491 INFO Succes [1146756342, 731253916]
+2024-03-06 15:54:46,492 INFO user 731253916 is admin
+2024-03-06 15:54:46,606 INFO Update id=730414829 is handled. Duration 301 ms by bot id=7163242879
+2024-03-06 15:55:03,317 INFO Getting channel post
+2024-03-06 15:55:03,532 INFO Update id=730414830 is handled. Duration 217 ms by bot id=7163242879
+2024-03-06 15:55:07,200 INFO Getting channel post
+2024-03-06 15:55:07,356 INFO Update id=730414831 is handled. Duration 158 ms by bot id=7163242879
+2024-03-06 15:56:07,958 INFO Getting channel post
+2024-03-06 15:56:08,161 INFO Update id=730414832 is handled. Duration 206 ms by bot id=7163242879
+2024-03-06 15:56:23,212 INFO Getting channel post
+2024-03-06 15:56:23,214 INFO Text for post Я усталь уже сдавать этого бота
+.
+2024-03-06 15:56:23,263 INFO Update id=730414833 is handled. Duration 53 ms by bot id=7163242879
+2024-03-06 15:56:32,952 INFO Price 10000
+2024-03-06 15:56:33,028 INFO Update id=730414834 is handled. Duration 84 ms by bot id=7163242879
+2024-03-06 15:56:36,510 INFO Price 5000
+2024-03-06 15:56:36,575 INFO Update id=730414835 is handled. Duration 69 ms by bot id=7163242879
+2024-03-06 15:56:41,432 INFO Name of watch пилваьзщиьвапрдлваздпрлваадрлбвадапр
+2024-03-06 15:56:41,537 INFO Check post before sendind
+2024-03-06 15:56:41,537 INFO Inserting media {'unique_id': '7312539168', 'message_text': 'Я усталь уже сдавать этого бота\n.', 'price': '10000', 'price2': '5000', 'name': 'пилваьзщиьвапрдлваздпрлваадрлбвадапр'}
+2024-03-06 15:56:41,705 INFO Getting text for watch 130
+2024-03-06 15:56:41,791 INFO Get files for watch 130: [('AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', 'photo', datetime.datetime(2024, 3, 6, 15, 55, 3, 520515)), ('AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', 'photo', datetime.datetime(2024, 3, 6, 15, 55, 7, 346940)), ('BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', 'video', datetime.datetime(2024, 3, 6, 15, 56, 8, 153307))]
+2024-03-06 15:56:41,791 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', caption='Я усталь уже сдавать этого бота\n.', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaVideo(type=<InputMediaType.VIDEO: 'video'>, media='BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', thumbnail=None, caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, width=None, height=None, duration=None, supports_streaming=None, has_spoiler=None)]
+2024-03-06 15:56:41,792 INFO Get files for watch 130: [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', caption='Я усталь уже сдавать этого бота\n.', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaVideo(type=<InputMediaType.VIDEO: 'video'>, media='BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', thumbnail=None, caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, width=None, height=None, duration=None, supports_streaming=None, has_spoiler=None)]
+2024-03-06 15:56:42,399 INFO Update id=730414836 is handled. Duration 970 ms by bot id=7163242879
+2024-03-06 15:58:04,518 INFO Getting text for watch 130
+2024-03-06 15:58:04,621 INFO Get files for watch 130: [('AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', 'photo', datetime.datetime(2024, 3, 6, 15, 55, 3, 520515)), ('AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', 'photo', datetime.datetime(2024, 3, 6, 15, 55, 7, 346940)), ('BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', 'video', datetime.datetime(2024, 3, 6, 15, 56, 8, 153307))]
+2024-03-06 15:58:04,621 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', caption='Я усталь уже сдавать этого бота\n.', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaVideo(type=<InputMediaType.VIDEO: 'video'>, media='BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', thumbnail=None, caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, width=None, height=None, duration=None, supports_streaming=None, has_spoiler=None)]
+2024-03-06 15:58:04,622 INFO Get files for watch 130: [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMKZeiR1-cvTAH9A12ZZz-Qn05QDlkAAo_WMRudQEFLjUMZw15sWHUBAAMCAAN4AAM0BA', caption='Я усталь уже сдавать этого бота\n.', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAMLZeiR237dw28bw26LmwjNa6jxZWgAAnXWMRudQEFL6m83bFSXY6oBAAMCAAN4AAM0BA', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaVideo(type=<InputMediaType.VIDEO: 'video'>, media='BAACAgIAAxkBAAMMZeiSF3Lf1WZ_n7W_VA9fCKEmdWYAAp5AAALsO0lLxDv_L1VmquU0BA', thumbnail=None, caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, width=None, height=None, duration=None, supports_streaming=None, has_spoiler=None)]
+2024-03-06 15:58:04,869 INFO Upd mesg 130, 5
+2024-03-06 15:58:05,077 INFO Update id=730414837 is handled. Duration 752 ms by bot id=7163242879
+2024-03-06 16:10:53,759 INFO START 401078294
+2024-03-06 16:10:53,759 INFO Adiing user 401078294
+2024-03-06 16:10:53,986 INFO Succes [1146756342, 731253916]
+2024-03-06 16:10:54,030 INFO Checking orders of user 401078294
+2024-03-06 16:10:54,030 INFO Get watch status
+2024-03-06 16:10:54,121 INFO watch status 401078294 for_sale
+2024-03-06 16:10:54,127 INFO Get book
+2024-03-06 16:10:54,229 INFO Succes 128
+2024-03-06 16:10:54,331 INFO Getting text for watch 128
+2024-03-06 16:10:54,414 INFO Get files for watch 128: [('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 19, 20, 53, 4, 841141))]
+2024-03-06 16:10:54,414 INFO Succes ('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', '1 бакс и диплом ваш')
+2024-03-06 16:10:54,450 INFO Update id=730414838 is not handled. Duration 691 ms by bot id=7163242879
+2024-03-06 16:10:54,450 ERROR Cause exception while process update id=730414838 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 184, in get_book
+    await send_media(chat=message.from_user.id, bot=bot, data=files)
+  File "/bot/core/handlers/admin_handl.py", line 130, in send_media
+    msg = await bot.send_photo(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2824, in send_photo
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+2024-03-06 16:11:01,699 INFO BOOK 401078294
+2024-03-06 16:11:01,700 INFO Adiing user 401078294
+2024-03-06 16:11:01,862 INFO Check user order  401078294
+2024-03-06 16:11:01,862 INFO Get watch status
+2024-03-06 16:11:01,980 INFO watch status 401078294 for_sale
+2024-03-06 16:11:01,986 INFO Get book
+2024-03-06 16:11:02,081 INFO Succes 128
+2024-03-06 16:11:02,175 INFO Getting text for watch 128
+2024-03-06 16:11:02,274 INFO Get files for watch 128: [('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 19, 20, 53, 4, 841141))]
+2024-03-06 16:11:02,274 INFO Succes ('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', '1 бакс и диплом ваш')
+2024-03-06 16:11:02,334 INFO Update id=730414839 is not handled. Duration 637 ms by bot id=7163242879
+2024-03-06 16:11:02,335 ERROR Cause exception while process update id=730414839 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 138, in cmd_book
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 184, in get_book
+    await send_media(chat=message.from_user.id, bot=bot, data=files)
+  File "/bot/core/handlers/admin_handl.py", line 130, in send_media
+    msg = await bot.send_photo(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2824, in send_photo
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+2024-03-06 16:11:05,052 INFO START 401078294
+2024-03-06 16:11:05,052 INFO Adiing user 401078294
+2024-03-06 16:11:05,469 INFO Succes [1146756342, 731253916]
+2024-03-06 16:11:05,676 INFO Checking orders of user 401078294
+2024-03-06 16:11:05,678 INFO Get watch status
+2024-03-06 16:11:05,754 INFO watch status 401078294 for_sale
+2024-03-06 16:11:05,759 INFO Get book
+2024-03-06 16:11:05,854 INFO Succes 128
+2024-03-06 16:11:05,933 INFO Getting text for watch 128
+2024-03-06 16:11:06,019 INFO Get files for watch 128: [('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 19, 20, 53, 4, 841141))]
+2024-03-06 16:11:06,019 INFO Succes ('AgACAgIAAxkBAAIW2WXTv7B09qqtKSRwFCcvo_dxl9Q_AAIZ0zEb9rmgSssmxkeDI48LAQADAgADeQADNAQ', 'photo', '1 бакс и диплом ваш')
+2024-03-06 16:11:06,132 INFO Update id=730414840 is not handled. Duration 1082 ms by bot id=7163242879
+2024-03-06 16:11:06,132 ERROR Cause exception while process update id=730414840 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 184, in get_book
+    await send_media(chat=message.from_user.id, bot=bot, data=files)
+  File "/bot/core/handlers/admin_handl.py", line 130, in send_media
+    msg = await bot.send_photo(chat_id=chat, photo=media, caption=caption, reply_markup=kb)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2824, in send_photo
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: wrong file identifier/HTTP URL specified
+2024-03-06 16:11:20,716 INFO START 2111288764
+2024-03-06 16:11:20,717 INFO Adiing user 2111288764
+2024-03-06 16:11:20,985 INFO Succes [1146756342, 731253916]
+2024-03-06 16:11:21,093 INFO Checking orders of user 2111288764
+2024-03-06 16:11:21,093 INFO Get watch status
+2024-03-06 16:11:21,171 INFO watch status 2111288764 Done
+2024-03-06 16:11:21,175 INFO Get book
+2024-03-06 16:11:21,253 INFO Succes 126
+2024-03-06 16:11:21,331 INFO Getting text for watch 126
+2024-03-06 16:11:21,410 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:11:21,410 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:11:21,625 INFO Update id=730414841 is not handled. Duration 909 ms by bot id=7163242879
+2024-03-06 16:11:21,628 ERROR Cause exception while process update id=730414841 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 16:11:30,302 INFO BOOK 2111288764
+2024-03-06 16:11:30,303 INFO Adiing user 2111288764
+2024-03-06 16:11:30,656 INFO Check user order  2111288764
+2024-03-06 16:11:30,657 INFO Get watch status
+2024-03-06 16:11:30,730 INFO watch status 2111288764 Done
+2024-03-06 16:11:30,734 INFO Get book
+2024-03-06 16:11:30,811 INFO Succes 126
+2024-03-06 16:11:30,907 INFO Getting text for watch 126
+2024-03-06 16:11:30,993 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:11:30,993 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:11:31,168 INFO Update id=730414842 is not handled. Duration 867 ms by bot id=7163242879
+2024-03-06 16:11:31,169 ERROR Cause exception while process update id=730414842 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 138, in cmd_book
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 16:11:32,898 INFO START 2111288764
+2024-03-06 16:11:32,898 INFO Adiing user 2111288764
+2024-03-06 16:11:33,150 INFO Succes [1146756342, 731253916]
+2024-03-06 16:11:33,205 INFO Checking orders of user 2111288764
+2024-03-06 16:11:33,205 INFO Get watch status
+2024-03-06 16:11:33,279 INFO watch status 2111288764 Done
+2024-03-06 16:11:33,284 INFO Get book
+2024-03-06 16:11:33,364 INFO Succes 126
+2024-03-06 16:11:33,443 INFO Getting text for watch 126
+2024-03-06 16:11:33,525 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:11:33,526 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:11:33,566 INFO Update id=730414843 is not handled. Duration 669 ms by bot id=7163242879
+2024-03-06 16:11:33,567 ERROR Cause exception while process update id=730414843 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 16:31:31,959 INFO START 308912114
+2024-03-06 16:31:31,960 INFO Adiing user 308912114
+2024-03-06 16:31:32,227 INFO Succes [1146756342, 731253916]
+2024-03-06 16:31:32,290 INFO Checking orders of user 308912114
+2024-03-06 16:31:32,290 INFO Get watch status
+2024-03-06 16:31:32,376 INFO watch status 308912114 no order
+2024-03-06 16:31:32,453 INFO Update id=730414844 is handled. Duration 494 ms by bot id=7163242879
+2024-03-06 16:33:49,839 INFO START 2111288764
+2024-03-06 16:33:49,840 INFO Adiing user 2111288764
+2024-03-06 16:33:50,139 INFO Succes [1146756342, 731253916]
+2024-03-06 16:33:50,237 INFO Checking orders of user 2111288764
+2024-03-06 16:33:50,237 INFO Get watch status
+2024-03-06 16:33:50,312 INFO watch status 2111288764 Done
+2024-03-06 16:33:50,316 INFO Get book
+2024-03-06 16:33:50,387 INFO Succes 126
+2024-03-06 16:33:50,462 INFO Getting text for watch 126
+2024-03-06 16:33:50,538 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:33:50,538 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:33:50,558 INFO Update id=730414845 is not handled. Duration 721 ms by bot id=7163242879
+2024-03-06 16:33:50,559 ERROR Cause exception while process update id=730414845 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 16:36:19,807 INFO START 2111288764
+2024-03-06 16:36:19,808 INFO Adiing user 2111288764
+2024-03-06 16:36:20,094 INFO Succes [1146756342, 731253916]
+2024-03-06 16:36:20,173 INFO Checking orders of user 2111288764
+2024-03-06 16:36:20,173 INFO Get watch status
+2024-03-06 16:36:20,261 INFO watch status 2111288764 Done
+2024-03-06 16:36:20,267 INFO Get book
+2024-03-06 16:36:20,354 INFO Succes 126
+2024-03-06 16:36:20,440 INFO Getting text for watch 126
+2024-03-06 16:36:20,523 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:36:20,524 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:36:20,548 INFO Update id=730414846 is not handled. Duration 742 ms by bot id=7163242879
+2024-03-06 16:36:20,549 ERROR Cause exception while process update id=730414846 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 16:36:38,049 INFO Getting logs 731253916
+2024-03-06 16:36:38,049 INFO Adiing user 731253916
+2024-03-06 16:36:38,214 INFO Succes [1146756342, 731253916]
+2024-03-06 16:36:38,328 WARNING user 731253916 is not admin
+2024-03-06 16:36:38,328 INFO Update id=730414847 is handled. Duration 281 ms by bot id=7163242879
+2024-03-06 16:37:07,056 INFO Getting logs 731253916
+2024-03-06 16:37:07,057 INFO Adiing user 731253916
+2024-03-06 16:37:07,247 INFO Succes [1146756342, 731253916]
+2024-03-06 16:37:07,440 WARNING user 731253916 is not admin
+2024-03-06 16:37:07,440 INFO Update id=730414848 is handled. Duration 386 ms by bot id=7163242879
+2024-03-06 16:37:25,985 INFO START 2111288764
+2024-03-06 16:37:25,987 INFO Adiing user 2111288764
+2024-03-06 16:37:26,305 INFO Succes [1146756342, 731253916]
+2024-03-06 16:37:26,467 INFO Checking orders of user 2111288764
+2024-03-06 16:37:26,468 INFO Get watch status
+2024-03-06 16:37:26,544 INFO watch status 2111288764 Done
+2024-03-06 16:37:26,548 INFO Get book
+2024-03-06 16:37:26,635 INFO Succes 126
+2024-03-06 16:37:26,732 INFO Getting text for watch 126
+2024-03-06 16:37:26,820 INFO Get files for watch 126: [('AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 20, 761604)), ('AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', 'photo', datetime.datetime(2024, 2, 12, 14, 20, 25, 146998))]
+2024-03-06 16:37:26,821 INFO Succes [InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWe2XKKSSsZSXi4o7SfV_RXRf30szbAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption='описание', parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None), InputMediaPhoto(type=<InputMediaType.PHOTO: 'photo'>, media='AgACAgIAAxkBAAIWemXKKRkJz67S6WE3PGJhKtGOE_msAAIh2zEbLYlRSh-xf1LoceGgAQADAgADeQADNAQ', caption=None, parse_mode=sentinel.UNSET_PARSE_MODE, caption_entities=None, has_spoiler=None)]
+2024-03-06 16:37:26,943 INFO Update id=730414849 is not handled. Duration 960 ms by bot id=7163242879
+2024-03-06 16:37:26,943 ERROR Cause exception while process update id=730414849 by bot id=7163242879
+TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 114, in start
+    await get_book(message=message, state=state, bot=bot)
+  File "/bot/core/handlers/user_handlers.py", line 186, in get_book
+    await bot.send_media_group(chat_id=message.from_user.id, media=files)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 2708, in send_media_group
+    return await self(call, request_timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/bot.py", line 441, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 257, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/aiohttp.py", line 179, in make_request
+    response = self.check_response(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: failed to send message #1 with the error message "Wrong file identifier/HTTP URL specified"
+2024-03-06 23:34:57,553 INFO START 1146756342
+2024-03-06 23:34:57,554 INFO Adiing user 1146756342
+2024-03-06 23:34:57,749 INFO Succes [731253916, 1146756342]
+2024-03-06 23:34:57,818 INFO Update id=730414850 is handled. Duration 266 ms by bot id=7163242879
+2024-03-06 23:39:17,480 INFO BOOK 1146756342
+2024-03-06 23:39:17,480 INFO Adiing user 1146756342
+2024-03-06 23:39:17,608 INFO Check user order  1146756342
+2024-03-06 23:39:17,609 INFO Get watch status
+2024-03-06 23:39:17,683 INFO watch status 1146756342 no order
+2024-03-06 23:39:17,716 INFO Update id=730414851 is handled. Duration 238 ms by bot id=7163242879
