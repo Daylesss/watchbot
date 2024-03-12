@@ -3,7 +3,7 @@ import asyncio
 from functools import wraps
 from typing import AsyncGenerator
 from datetime import datetime
-from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, ForeignKey, JSON, Boolean, MetaData, Double
+from sqlalchemy import Table, Column, Integer, BigInteger, String, TIMESTAMP, ForeignKey, JSON, Boolean, MetaData, Double
 from sqlalchemy import MetaData, select, insert, update
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -41,15 +41,15 @@ def retry(times=2, sleep_for: int = 3):
 watch = Table(
     "watch",
     metadata,
-    Column("watch_id", Integer, primary_key=True),
-    Column("channel_message_id", Integer),
-    Column("admin_message_id", Integer),
+    Column("watch_id", BigInteger, primary_key=True),
+    Column("channel_message_id", BigInteger),
+    Column("admin_message_id", BigInteger),
     Column("unique_file_id", String, unique= True),
     Column("msg_txt", String),
     Column("price", Integer, nullable=False),
     Column("booking_price", Integer, nullable=False),
     Column("watch_name", String),
-    Column("order_id", Integer),
+    Column("order_id", BigInteger),
     Column("status", String, nullable=False, default="for_sale"),
     Column("watch_registred_at", TIMESTAMP, default=datetime.utcnow)
 )
@@ -57,20 +57,20 @@ watch = Table(
 user = Table(
     "user",
     metadata,
-    Column("user_id", Integer, primary_key=True),
-    Column("tg_id", Integer, nullable=False, unique=True),
+    Column("user_id", BigInteger, primary_key=True),
+    Column("tg_id", BigInteger, nullable=False, unique=True),
     Column("username", String),
     Column("is_admin", Boolean, nullable=False, default=False),
-    Column("order_id", Integer),
+    Column("order_id", BigInteger),
     Column("registered_at", TIMESTAMP, default=datetime.utcnow)
 )
 
 order = Table(
     "order",
     metadata,
-    Column("order_id", Integer, primary_key=True),
-    Column("tg_id", Integer, ForeignKey("user.tg_id"), nullable=False),
-    Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
+    Column("order_id", BigInteger, primary_key=True),
+    Column("tg_id", BigInteger, ForeignKey("user.tg_id"), nullable=False),
+    Column("watch_id", BigInteger, ForeignKey("watch.watch_id"), nullable=False),
     Column("book_or_buy", String),
     Column("order_price", Double),
     Column("network", String),
@@ -82,9 +82,9 @@ order = Table(
 transaction = Table(
     "transaction",
     metadata,
-    Column("transaction_id", Integer, primary_key=True),
-    Column("tg_id", Integer, nullable=False),
-    Column("watch_id", Integer, ForeignKey("watch.watch_id"), nullable=False),
+    Column("transaction_id", BigInteger, primary_key=True),
+    Column("tg_id", BigInteger, nullable=False),
+    Column("watch_id", BigInteger, ForeignKey("watch.watch_id"), nullable=False),
     Column("transaction_data", JSON, nullable=False),
     Column("transaction_time", TIMESTAMP, default=datetime.utcnow)
 )
@@ -92,11 +92,11 @@ transaction = Table(
 watch_file = Table(
     "watch_file",
     metadata,
-    Column("watch_file_id", Integer, primary_key=True),
+    Column("watch_file_id", BigInteger, primary_key=True),
     Column("unique_file_id", String, nullable=False),
     Column("file_id", String, nullable=False),
     Column("file_type", String, nullable=False),
-    Column("watch_file_registred_at", TIMESTAMP, default=datetime.utcnow)
+    Column("watch_file_registred_at", TIMESTAMP, default=datetime.utcnow),
 )
 
 
