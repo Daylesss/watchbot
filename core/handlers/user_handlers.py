@@ -260,9 +260,9 @@ async def network(call: types.CallbackQuery, state: FSMContext):
     await call.message.answer("Принято. Введите адрес кошелька, с которого вы планируете оплачивать товар.")
 
 def pay_data_conv(data: dict):
-    if data["book_or_buy"]=="buy":
-        bob = "бронь"
     if data["book_or_buy"]=="book":
+        bob = "бронь"
+    if data["book_or_buy"]=="buy":
         bob = "покупка"
     msg = f'''Проверьте правильность введенных данных:
 Покупка/бронирование - {bob}

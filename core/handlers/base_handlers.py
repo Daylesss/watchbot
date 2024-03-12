@@ -8,7 +8,7 @@ from sqlalchemy import exc
 from core.config import ADMIN, CHANNEL, CHANNEL_LINK
 from core.utils.keyboards import get_kb, get_rep_kb
 from core.utils.command import set_command
-from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id, get_admins_id, get_admins_username, get_watch_status
+from core.database.functions import new_user_db, get_user_watch_status_db, new_order_db, add_admin_by_id,upd_admin_by_id, get_admins_id, get_admins_username, get_watch_status
 from core.utils.FSM import UserFSM, AdminFSM
 from core.handlers.user_handlers import get_book, get_book2
 from core.handlers.admin_handl import parse_admins
@@ -33,6 +33,7 @@ async def start_bot(bot: Bot):
         await add_admin_by_id(tg_id=int(ADMIN))
     except exc.DBAPIError:
         logging.warning(f"Admin {int(ADMIN)} already exists")
+        await upd_admin_by_id(tg_id=int(ADMIN))
     await bot.send_message(chat_id=ADMIN, text="Bot started.")
 
 @base_router.shutdown()
