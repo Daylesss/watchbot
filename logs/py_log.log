@@ -1553,3 +1553,377 @@ aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: faile
 2024-03-06 23:39:17,609 INFO Get watch status
 2024-03-06 23:39:17,683 INFO watch status 1146756342 no order
 2024-03-06 23:39:17,716 INFO Update id=730414851 is handled. Duration 238 ms by bot id=7163242879
+2024-03-06 23:41:31,627 INFO Setting commands to bot
+2024-03-06 23:41:31,660 INFO Try to add an admin
+2024-03-06 23:41:31,748 WARNING Admin 731253916 already exists
+2024-03-06 23:41:31,985 INFO Start polling
+2024-03-06 23:41:31,993 INFO Run polling for bot @tourbillonwatchru_bot id=7163242879 - 'TOURBILLON WATCH BOT'
+2024-03-06 23:41:32,036 INFO START 1146756342
+2024-03-06 23:41:32,036 INFO Adiing user 1146756342
+2024-03-06 23:41:32,256 INFO Succes [731253916, 1146756342]
+2024-03-06 23:41:32,281 INFO Update id=730414852 is handled. Duration 246 ms by bot id=7163242879
+2024-03-06 23:41:35,512 INFO BOOK 1146756342
+2024-03-06 23:41:35,513 INFO Adiing user 1146756342
+2024-03-06 23:41:35,746 INFO Check user order  1146756342
+2024-03-06 23:41:35,746 INFO Get watch status
+2024-03-06 23:41:35,830 INFO watch status 1146756342 no order
+2024-03-06 23:41:35,878 INFO Update id=730414853 is handled. Duration 368 ms by bot id=7163242879
+2024-03-06 23:42:31,392 INFO Setting commands to bot
+2024-03-06 23:42:31,460 INFO Try to add an admin
+2024-03-06 23:42:31,571 WARNING Admin 731253916 already exists
+2024-03-06 23:42:31,774 INFO Start polling
+2024-03-06 23:42:31,783 INFO Run polling for bot @tourbillonwatchru_bot id=7163242879 - 'TOURBILLON WATCH BOT'
+2024-03-06 23:42:42,153 INFO BOOK 1146756342
+2024-03-06 23:42:42,155 INFO Adiing user 1146756342
+2024-03-06 23:42:42,277 INFO Check user order  1146756342
+2024-03-06 23:42:42,277 INFO Get watch status
+2024-03-06 23:42:42,357 INFO watch status 1146756342 no order
+2024-03-06 23:42:42,412 INFO Update id=730414854 is handled. Duration 260 ms by bot id=7163242879
+2024-03-07 10:30:46,746 INFO Setting commands to bot
+2024-03-07 10:30:46,911 INFO Try to add an admin
+2024-03-07 10:30:47,032 WARNING Admin 308912114 already exists
+2024-03-07 10:30:47,344 INFO Start polling
+2024-03-07 10:30:47,356 INFO Run polling for bot @tourbillonwatchru_bot id=7163242879 - 'TOURBILLON WATCH BOT'
+2024-03-08 05:59:21,877 INFO START 5578467166
+2024-03-08 05:59:21,878 INFO Adiing user 5578467166
+2024-03-08 05:59:21,982 INFO Update id=730414855 is not handled. Duration 106 ms by bot id=7163242879
+2024-03-08 05:59:21,982 ERROR Cause exception while process update id=730414855 by bot id=7163242879
+DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 5578467166 (value out of int32 range)
+[SQL: SELECT "user".user_id, "user".tg_id, "user".username, "user".is_admin, "user".order_id, "user".registered_at 
+FROM "user" 
+WHERE "user".tg_id = $1::INTEGER]
+[parameters: (5578467166,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 168, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+  File "asyncpg/protocol/codecs/base.pyx", line 206, in asyncpg.protocol.protocol.Codec.encode
+  File "asyncpg/protocol/codecs/base.pyx", line 111, in asyncpg.protocol.protocol.Codec.encode_scalar
+  File "asyncpg/pgproto/./codecs/int.pyx", line 60, in asyncpg.pgproto.pgproto.int4_encode
+OverflowError: value out of int32 range
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 538, in _prepare_and_execute
+    self._rows = await prepared_stmt.fetch(*parameters)
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+  File "asyncpg/protocol/protocol.pyx", line 183, in bind_execute
+  File "asyncpg/protocol/prepared_stmt.pyx", line 197, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+asyncpg.exceptions.DataError: invalid input for query argument $1: 5578467166 (value out of int32 range)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 572, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 127, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 192, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 501, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 789, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 5578467166 (value out of int32 range)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 80, in start
+    await new_user_db(message.from_user.id, message.from_user.username)
+  File "/bot/core/database/functions.py", line 37, in new_user_db
+    query= await session.execute(query)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py", line 452, in execute
+    result = await greenlet_spawn(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 197, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2306, in execute
+    return self._execute_internal(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2200, in _execute_internal
+    result = conn.execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1408, in execute
+    return meth(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 513, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1630, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1839, in _execute_context
+    return self._exec_single_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1979, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2335, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 572, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 127, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 192, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 501, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 789, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 5578467166 (value out of int32 range)
+[SQL: SELECT "user".user_id, "user".tg_id, "user".username, "user".is_admin, "user".order_id, "user".registered_at 
+FROM "user" 
+WHERE "user".tg_id = $1::INTEGER]
+[parameters: (5578467166,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2024-03-08 20:57:02,653 ERROR Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2024-03-08 20:57:02,654 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7163242879)
+2024-03-08 20:57:13,674 INFO Connection established (tryings = 1, bot id = 7163242879)
+2024-03-09 01:10:44,432 ERROR Failed to fetch updates - TelegramServerError: Telegram server says - Bad Gateway
+2024-03-09 01:10:44,432 WARNING Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7163242879)
+2024-03-09 01:10:45,438 ERROR Failed to fetch updates - TelegramServerError: Telegram server says - Bad Gateway
+2024-03-09 01:10:45,439 WARNING Sleep for 1.515177 seconds and try again... (tryings = 1, bot id = 7163242879)
+2024-03-09 01:11:32,247 INFO Connection established (tryings = 2, bot id = 7163242879)
+2024-03-10 18:50:36,218 INFO START 6547516987
+2024-03-10 18:50:36,219 INFO Adiing user 6547516987
+2024-03-10 18:50:36,318 INFO Update id=730414856 is not handled. Duration 103 ms by bot id=7163242879
+2024-03-10 18:50:36,318 ERROR Cause exception while process update id=730414856 by bot id=7163242879
+DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 6547516987 (value out of int32 range)
+[SQL: SELECT "user".user_id, "user".tg_id, "user".username, "user".is_admin, "user".order_id, "user".registered_at 
+FROM "user" 
+WHERE "user".tg_id = $1::INTEGER]
+[parameters: (6547516987,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 168, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+  File "asyncpg/protocol/codecs/base.pyx", line 206, in asyncpg.protocol.protocol.Codec.encode
+  File "asyncpg/protocol/codecs/base.pyx", line 111, in asyncpg.protocol.protocol.Codec.encode_scalar
+  File "asyncpg/pgproto/./codecs/int.pyx", line 60, in asyncpg.pgproto.pgproto.int4_encode
+OverflowError: value out of int32 range
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 538, in _prepare_and_execute
+    self._rows = await prepared_stmt.fetch(*parameters)
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+  File "/usr/local/lib/python3.9/site-packages/asyncpg/prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+  File "asyncpg/protocol/protocol.pyx", line 183, in bind_execute
+  File "asyncpg/protocol/prepared_stmt.pyx", line 197, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+asyncpg.exceptions.DataError: invalid input for query argument $1: 6547516987 (value out of int32 range)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 572, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 127, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 192, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 501, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 789, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 6547516987 (value out of int32 range)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/fsm/middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/bot/core/handlers/base_handlers.py", line 80, in start
+    await new_user_db(message.from_user.id, message.from_user.username)
+  File "/bot/core/database/functions.py", line 37, in new_user_db
+    query= await session.execute(query)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py", line 452, in execute
+    result = await greenlet_spawn(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 197, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2306, in execute
+    return self._execute_internal(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2200, in _execute_internal
+    result = conn.execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1408, in execute
+    return meth(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 513, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1630, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1839, in _execute_context
+    return self._exec_single_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1979, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2335, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1960, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 572, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 127, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 192, in greenlet_spawn
+    value = await result
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 501, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 789, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 6547516987 (value out of int32 range)
+[SQL: SELECT "user".user_id, "user".tg_id, "user".username, "user".is_admin, "user".order_id, "user".registered_at 
+FROM "user" 
+WHERE "user".tg_id = $1::INTEGER]
+[parameters: (6547516987,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2024-03-12 09:09:01,271 INFO Update id=730414857 is not handled. Duration 6 ms by bot id=7163242879
+2024-03-12 09:09:05,953 INFO START 308912114
+2024-03-12 09:09:05,953 INFO Adiing user 308912114
+2024-03-12 09:09:06,203 INFO Succes [731253916, 1146756342]
+2024-03-12 09:09:06,282 INFO Checking orders of user 308912114
+2024-03-12 09:09:06,283 INFO Get watch status
+2024-03-12 09:09:06,363 INFO watch status 308912114 no order
+2024-03-12 09:09:06,437 INFO Update id=730414858 is handled. Duration 487 ms by bot id=7163242879
+2024-03-12 09:09:45,761 INFO Update id=730414859 is not handled. Duration 4 ms by bot id=7163242879
+2024-03-12 09:11:17,714 INFO Try to send new post 308912114
+2024-03-12 09:11:17,715 INFO Adiing user 308912114
+2024-03-12 09:11:17,891 INFO Succes [731253916, 1146756342]
+2024-03-12 09:11:17,892 WARNING user 308912114 is not admin
+2024-03-12 09:11:17,892 INFO Update id=730414860 is handled. Duration 180 ms by bot id=7163242879
+2024-03-12 09:11:57,653 INFO START 308912114
+2024-03-12 09:11:57,653 INFO Adiing user 308912114
+2024-03-12 09:11:57,845 INFO Succes [731253916, 1146756342]
+2024-03-12 09:11:57,878 INFO Checking orders of user 308912114
+2024-03-12 09:11:57,878 INFO Get watch status
+2024-03-12 09:11:57,948 INFO watch status 308912114 no order
+2024-03-12 09:11:57,991 INFO Update id=730414861 is handled. Duration 340 ms by bot id=7163242879
+2024-03-12 09:14:38,208 INFO START 308912114
+2024-03-12 09:14:38,209 INFO Adiing user 308912114
+2024-03-12 09:14:38,467 INFO Succes [731253916, 1146756342]
+2024-03-12 09:14:38,553 INFO Checking orders of user 308912114
+2024-03-12 09:14:38,553 INFO Get watch status
+2024-03-12 09:14:38,647 INFO watch status 308912114 no order
+2024-03-12 09:14:38,743 INFO Update id=730414862 is handled. Duration 537 ms by bot id=7163242879
+2024-03-12 09:15:19,680 INFO START 731253916
+2024-03-12 09:15:19,680 INFO Adiing user 731253916
+2024-03-12 09:15:19,920 INFO Succes [1146756342, 731253916]
+2024-03-12 09:15:19,969 INFO Update id=730414863 is handled. Duration 291 ms by bot id=7163242879
+2024-03-12 09:19:46,642 INFO Setting commands to bot
+2024-03-12 09:19:46,684 INFO Try to add an admin
+2024-03-12 09:19:46,781 WARNING Admin 308912114 already exists
+2024-03-12 09:19:46,989 INFO Start polling
+2024-03-12 09:19:47,000 INFO Run polling for bot @tourbillonwatchru_bot id=7163242879 - 'TOURBILLON WATCH BOT'
+2024-03-12 09:19:57,238 INFO START 308912114
+2024-03-12 09:19:57,239 INFO Adiing user 308912114
+2024-03-12 09:19:57,443 INFO Succes [1146756342, 731253916]
+2024-03-12 09:19:57,522 INFO Checking orders of user 308912114
+2024-03-12 09:19:57,522 INFO Get watch status
+2024-03-12 09:19:57,595 INFO watch status 308912114 no order
+2024-03-12 09:19:57,669 INFO Update id=730414864 is handled. Duration 432 ms by bot id=7163242879
+2024-03-12 09:20:09,922 INFO START 731253916
+2024-03-12 09:20:09,922 INFO Adiing user 731253916
+2024-03-12 09:20:10,218 INFO Succes [731253916, 1146756342]
+2024-03-12 09:20:10,323 INFO Update id=730414865 is handled. Duration 402 ms by bot id=7163242879
+2024-03-12 09:21:28,885 INFO START 731253916
+2024-03-12 09:21:28,885 INFO Adiing user 731253916
+2024-03-12 09:21:29,121 INFO Succes [731253916, 1146756342]
+2024-03-12 09:21:29,156 INFO Update id=730414866 is handled. Duration 272 ms by bot id=7163242879
+2024-03-12 09:21:32,086 INFO START 731253916
+2024-03-12 09:21:32,087 INFO Adiing user 731253916
+2024-03-12 09:21:32,284 INFO Succes [731253916, 1146756342]
+2024-03-12 09:21:32,318 INFO Update id=730414867 is handled. Duration 232 ms by bot id=7163242879
+2024-03-12 09:23:09,559 INFO START 731253916
+2024-03-12 09:23:09,559 INFO Adiing user 731253916
+2024-03-12 09:23:09,782 INFO Succes [731253916, 1146756342]
+2024-03-12 09:23:09,835 INFO Update id=730414868 is handled. Duration 277 ms by bot id=7163242879
+2024-03-12 09:55:31,468 INFO START 134816511
+2024-03-12 09:55:31,468 INFO Adiing user 134816511
+2024-03-12 09:55:31,711 INFO Succes [731253916, 308912114, 1146756342]
+2024-03-12 09:55:31,746 INFO Checking orders of user 134816511
+2024-03-12 09:55:31,746 INFO Get watch status
+2024-03-12 09:55:31,820 INFO watch status 134816511 no order
+2024-03-12 09:55:31,880 INFO Update id=730414869 is handled. Duration 414 ms by bot id=7163242879
