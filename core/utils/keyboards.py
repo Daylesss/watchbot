@@ -25,9 +25,9 @@ def get_book_kb(watch_id: str):
 
 def get_rep_kb(is_main: bool):
     if is_main:
-        btn = [[KeyboardButton(text="Отправить пост")],[KeyboardButton(text="Добавить администратора"), KeyboardButton(text="Удалить администратора")]]
+        btn = [[KeyboardButton(text="Отправить фото с описанием товара")],[KeyboardButton(text="Добавить администратора"), KeyboardButton(text="Удалить администратора")]]
     else: 
-        btn = [[KeyboardButton(text="Отправить пост")]]
+        btn = [[KeyboardButton(text="Отправить фото с описанием товара")]]
     kb= ReplyKeyboardMarkup(resize_keyboard=True, 
                             keyboard=btn)
     return kb

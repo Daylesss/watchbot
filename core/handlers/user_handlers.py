@@ -244,7 +244,7 @@ async def yes_buy(call: types.CallbackQuery, state: FSMContext):
     
     keyboard = get_kb(buttons, [2])
     
-    await call.message.answer("Выберете сеть для оплаты", reply_markup=keyboard)
+    await call.message.answer("Выберите сеть для оплаты", reply_markup=keyboard)
 
 @user_router.callback_query(UserFSM.network, F.data=="trc20")
 @user_router.callback_query(UserFSM.network, F.data=="erc20")
@@ -257,7 +257,7 @@ async def network(call: types.CallbackQuery, state: FSMContext):
     await state.update_data(network = call.data)
     
     await state.set_state(UserFSM.address)
-    await call.message.answer("Принято. Теперь введите адресс кошелька.")
+    await call.message.answer("Принято. Введите адрес кошелька, с которого вы планируете оплачивать товар.")
 
 def pay_data_conv(data: dict):
     if data["book_or_buy"]=="buy":
@@ -270,7 +270,7 @@ def pay_data_conv(data: dict):
 адрес - {data['address']}
 Цена - {data["price"]} USD
 
-После подтверждения у вас будет пять минут на то, чтобы оплатить товар. По истечении времени оплата будет недействительна.'''
+После подтверждения у вас будет пять минут на то, чтобы оплатить товар. По истечении данного времени оплата будет недействительна.'''
     return msg
 
 @user_router.message(UserFSM.address, F.text.isalnum())

@@ -78,7 +78,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
 
 
     await new_user_db(message.from_user.id, message.from_user.username)
-    await message.answer("Привет я бот для покупки/бронирования часов.")
+    await message.answer("Салют. Я TOURBILLON WATCH BOT для покупки/бронирования часов.")
     
     admins = await get_admins_id()
 
@@ -95,7 +95,7 @@ async def start(message: types.Message, state: FSMContext, bot: Bot):
         await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
         return
 
-    await message.answer("Сейчас посмотрю, что вы бронировали.")
+    await message.answer("Сейчас проверим, что вы выбрали")
     logging.info(f"Checking orders of user {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
 
@@ -120,7 +120,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await state.clear()
     await new_user_db(message.from_user.id, message.from_user.username)
 
-    await message.answer("Сейчас посмотрю, что вы бронировали.")
+    await message.answer("Сейчас проверим, что вы выбрали")
     logging.info(f"Check user order  {message.from_user.id}")
     user_watch = await get_user_watch_status_db(message.from_user.id)
     if user_watch=="no_order":
@@ -138,7 +138,7 @@ async def cmd_book(message: types.Message, state: FSMContext, bot: Bot):
     await get_book(message=message, state=state, bot=bot)
 
 
-@base_router.message(F.text=="Отправить пост")
+@base_router.message(F.text=="Отправить фото с описанием товара")
 async def send_adm_post(message: types.Message, state: FSMContext):
     logging.info(f"Try to send new post {message.from_user.id}")
     await new_user_db(message.from_user.id, message.from_user.username)
@@ -153,7 +153,7 @@ async def send_adm_post(message: types.Message, state: FSMContext):
             kb = get_rep_kb(is_main=True)
         else:
             kb = get_rep_kb(is_main=False)
-        await message.answer("Отправьте сообщение с товаром", reply_markup=kb)
+        await message.answer("Отправьте фото или видео с товаром, после отправьте сообщением описание и местоположение товара", reply_markup=kb)
         await state.set_state(AdminFSM.start)
         await state.update_data(unique_id=f"{message.from_user.id}{message.message_id}")
         return
@@ -187,7 +187,7 @@ async def book_from_channel(call: types.CallbackQuery, bot: Bot):
 
     if not(is_new):
         try:
-            await bot.send_message(call.from_user.id, "Вы выбрали новый товар. Перейти к оплате?", reply_markup=get_kb({"Да": "yes_to_pay", "Нет": "no_to_pay"}, [2]))
+            await bot.send_message(call.from_user.id, "Вижу вы выбрали новый товар. Переходим к оплате?", reply_markup=get_kb({"Да": "yes_to_pay", "Нет": "no_to_pay"}, [2]))
         except TelegramForbiddenError as err:
             logging.warning(f"Can not send message to user that exists in db {err}")
 
@@ -198,7 +198,7 @@ async def call_book(call: types.CallbackQuery, state: FSMContext, bot: Bot):
     await call.message.edit_reply_markup(reply_markup=None)
     await state.clear()
 
-    await call.message.answer("Сейчас посмотрю, что вы бронировали.")
+    await call.message.answer("Сейчас проверим, что вы выбрали")
     logging.info(f"Check user order  {call.from_user.id}")
     user_watch = await get_user_watch_status_db(call.from_user.id)
     if user_watch=="no_order":

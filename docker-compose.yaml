@@ -7,8 +7,8 @@ services:
   bot_db:
     image: postgres:15
     container_name: bot_db
-    ports:
-      - 5432
+    expose:
+      - '5432'
     env_file:
       - .env-non-dev
     restart: always
@@ -37,8 +37,8 @@ services:
       - .env-non-dev
     container_name: fastapi_app
     command: ["/app/fast.sh"]
-    ports:
-      - 8000
+    expose:
+      - '8000'
     depends_on:
       - bot_db
       - bot

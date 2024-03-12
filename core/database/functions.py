@@ -257,7 +257,7 @@ async def get_admins_username():
 
 async def add_admin_by_id(tg_id: int):
     async with async_session_maker() as session:
-        stmt = update(user).values(is_admin=True).where(user_id = tg_id)
+        stmt = update(user).values(is_admin=True).where(user.c.tg_id == tg_id)
         await session.execute(stmt)
         await session.commit()
 
